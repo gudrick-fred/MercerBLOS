@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Mercer County Bikeability Map</title>
+
+    <!-- Core CSS -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/typeahead.js-bootstrap.css" rel="stylesheet" type="text/css"> <!--https://github.com/jharding/typeahead.js-bootstrap.css-->
+    <link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" rel="stylesheet" type="text/css">
+    <!--[if lte IE 8]>
+        <link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" rel="stylesheet" type="text/css">
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome-ie7.min.css" rel="stylesheet">
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+    <style>
+        
+        html, body, #map, #sidebar, #container {
+            height: 100%;
+            margin: 0px;
+        }
+        
+        body {
+            padding-top: 50px;
+        }
+        
+        label {
+            font-weight: normal;
+        }
+        
+        .panel-heading a:hover {
+            text-decoration: none;
+        }
+        
+        #loading {
+            position: absolute;
+            width: 220px;
+            height: 19px;
+            top: 50%;
+            left: 50%;
+            margin: -10px 0 0 -110px;
+            z-index: 20001;
+        }
+		
+		#title{
+		    position: absolute;
+            width: 220px;
+            height: 19px;
+            top: 50%;
+            left: 50%;
+            margin: -10px 0 0 -110px;
+            z-index: 20001;
+		}
+		
+		.navbar .navbar-brand {
+            font-weight: bold;
+            font-size: 22px;
+            color: white;
+            white-space: nowrap;
+        }
+		
+		.navbar-inverse{
+            background-color: rgb(0,120,174);
+		}
+		
+        .tt-dropdown-menu {
+            overflow: auto;
+        }
+        
+        .tt-hint, .tt-query {
+            display: block;
+            width: 100%;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+        
+        .typeahead-header {
+            margin: 0 5px 5px 5px;
+            padding: 3px 0;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        .search-container {
+            width: 250px;
+        }
+        
+        #searchbox {
+            -webkit-border-top-left-radius: 4px;
+            -webkit-border-bottom-left-radius: 4px;
+            -moz-border-top-left-radius: 4px;
+            -moz-border-bottom-left-radius: 4px;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .leaflet-popup-content {
+            margin-top: 14px;
+            margin-bottom: 0px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+     
+        @media (max-width: 992px) {
+            .navbar .navbar-brand {
+                font-size: 18px;
+                float: left;
+            }
+            .search-container {
+                width: 150px;
+            }
+            .leaflet-control-attribution {
+                display: none;
+            }
+        }
+        @media (max-width: 768px){
+            .search-container {
+                width: 100%;
+            }
+        }
+        /* Print Handling */
+        @media print {
+            .navbar, .toggle, #sidebar {
+                display: none !important;
+            }
+        }
+	
+		.navbar-inverse .navbar-nav > li > a {
+    		color: rgb(200, 200, 200);
+		}
+
+		.modal-header {
+			background-color:rgb(0,120,174);
+		}
+
+		.modal-title  {
+			color: white;
+		}
+
+/*
+		.close {
+		    float: right;
+		    font-size: 21px;
+		    font-weight: bold;
+		    line-height: 1;
+		    color: white;
+		    text-shadow: 0px 1px 0px rgb(255, 255, 255);
+		    opacity: 1;
+		}
+*/
+		
+		.panel-primary > .panel-heading {
+		    color: #FFF;
+		    background-color: rgb(0,120,174);
+		    border-color: black;
+		}
+		
+			.panel-primary {
+		    border-color: black;
+		}
+
+		#sidebar {     
+			border-left: 1.5px solid black;
+			background-color: gray;
+		}
+
+		#aboutLegend .legendItem img {
+		    float:left;
+		    width:35px;
+		    height:auto;
+		    vertical-align:middle;
+		    margin-right:10px;
+		}
+
+		#aboutLegend h2 {
+			font-size:100%;
+			clear:both;
+			margin-bottom:10px;
+		}
+
+		#aboutLegend .legendItem h3 {
+		    float:left;
+		    font-size:100%;
+		    padding:0px;
+		    margin:0px;
+		    margin-right:10px;
+		}
+
+		#aboutLegend .legendItem p {
+		    padding:0px;
+		    margin:0px;
+		    clear:both;
+		}
+
+		#aboutLegend .legendItem {
+		    position:relative;
+		    width:auto;
+		    height:auto;
+		    overflow:auto;
+		    margin-bottom:10px;
+		}
+		
+		.legendimg {
+			width:63px;
+			height:13px;
+		}
+
+    </style>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.2.0/respond.js"></script>
+    <![endif]-->
+  
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+			<span>	
+                <a  href="http://www.dvrpc.org" target="_new"><img class="pull-left" style="margin:10px 0px 0px 15px" src="img/dvrpc_logo_small.png"/></a> 
+                <img class="pull-left" style="margin:10px 0px 0px 20px; width:30px; height:30px;" src="img/mercerlogo.png"/>
+                <a class="navbar-brand" href="#">Mercer County Bikeability Map</a> 
+			</span> 
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#aboutModal').modal('show'); return false;" style="background-color:rgb(0,120,174)"><i class="glyphicon glyphicon-info-sign" style="color: white"></i>&nbsp;&nbsp;About</a></li>
+                <li class="dropdown">    
+                    <a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown" style="background-color:rgb(0,120,174)"><i class="glyphicon glyphicon-wrench" style="color: white"></i>&nbsp;&nbsp;Tools and Data <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+							<li id="zoomToRegion"><a href="javascript:void(0);"><i class="icon-fullscreen"></i>&nbsp;&nbsp;Zoom To Full Extent</a></li>
+                  <!--       <li><a href="#" onclick="$('#legendModal').modal('show'); return false;"><i class="icon-picture"></i>&nbsp;&nbsp;Show Legend</a></li> -->
+                    </ul>
+                </li>
+            </ul>
+        </div><!--/.navbar-collapse -->
+    </div>
+
+    <div class="row" id="container">
+        <div class="col-sm-8 col-lg-8" id="map">
+    	    <div id='title'></div>	
+            <div id="loading" style="display: block;">
+                <div class="loading-indicator">
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar progress-bar-info" style="width: 100%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 col-lg-4" id="sidebar" style="padding: 10px; overflow: auto;">
+    		<div class="panel panel-primary">
+    			<div class="panel-heading" >
+    			   <span class="small text-muted" style="color:white"><strong>Layers</strong></span>
+                </div>	
+				<div id="overlay-layers" class="panel-collapse collapse in">
+	                <div class="panel-body" style="padding: 0px 15px;">
+					 	
+	                    <div class="checkbox">
+	                        <label>
+	                            <input id="roadway" type="checkbox"  onClick="toggleLayer(data1,'roadway')" checked>
+	                            <img src='img/Trails.png'width='40' height='8' > &nbsp;Mercer County Trail Network
+	                        </label>
+	                    </div> 
+						
+	                    <div class="checkbox">
+	                        <label>
+	                            <input id="rail" type="checkbox"  onClick="toggleLayer(data2,'rail')" checked>
+	                            <img src='img/railstation.png' width='24' height='24'> &nbsp;Rail Stations in Mercer County
+	                        </label>
+	                    </div>   									
+							
+	                    <div class="checkbox">
+	                        <label>
+	                            <input id="places" type="checkbox"  onClick="toggleLayer(data3,'places')" >
+	                            <img src='img/legend2.png' class='img-responsive' width='426' height='101'> 
+	                        </label>
+	                    </div>   	
+									
+						<b>Major Roads</b><br>
+									
+						<div class="checkbox">
+	                        <label>
+	                            <input id="Excellent" type="checkbox"  onClick="toggleLayer(data4,'Excellent')" checked>
+	                            <img src='img/excellent.png' width='40' height='8'> &nbsp;Excellent
+	                        </label>
+	                    </div>   	
+						
+	                    <div class="checkbox">
+	                        <label>
+	                            <input id="Fair" type="checkbox"  onClick="toggleLayer(data5,'Fair')" checked>
+	                            <img src='img/fair.png' width='40' height='8'> &nbsp;Fair
+	                        </label>
+	                    </div>   	
+						
+	                    <div class="checkbox">
+	                        <label>
+	                            <input id="UnFav" type="checkbox"  onClick="toggleLayer(data6,'UnFav')" >
+	                            <img src='img/unsafe.png' width='40' height='8'> &nbsp;Unfavorable
+	                        </label>
+	                    </div>   
+						
+	                    <div class="checkbox">
+	                        <label>
+	                            <input id="UnBike" type="checkbox"  onClick="toggleLayer(data7,'UnBike')" >
+	                            <img src='img/unbikeable.png' width='40' height='8'> &nbsp;Unbikeable
+	                        </label>
+	                    </div> 
+										 
+						<b>Minor Roads</b><br>
+						
+                        <div class="checkbox">
+                            <label>
+                                <input id="Fav" type="checkbox"  onClick="toggleLayer(data8,'Fav')" >
+                                <img src='img/localA.png' width='40' height='8'> &nbsp;Favorable
+                            </label>
+                        </div> 
+						
+                        <div class="checkbox">
+                            <label>
+                                <input id="UnFav" type="checkbox"  onClick="toggleLayer(data9,'UnFav')" >
+                                <img src='img/localD.png' width='40' height='8'> &nbsp;Unfavorable
+                            </label>
+                        </div> 
+					</div><!-- .panel-body -->
+	            </div><!-- #overlay-layers .panel-collapse collapse in -->
+			</div><!-- .panel panel-primary -->
+                          
+            
+            <div class="panel-group"  id="accordian" style="margin:10px 0px 10px 0px;">
+                <div class="panel body"style="border-color:black;">
+                    <div class="panel-heading"style=" background-color: rgb(0,120,174); ">
+                        <a data-toggle="collapse" data-parent="#accordion_" href="#infosidebar">
+                            <span style="color:white"><b>Information</b><em> (click road or icon)</em></span><br>
+                        </a>
+                    </div>
+                    <div id="infosidebar" style="margin-left:10px"></div>
+                </div>
+            </div>
+            
+<!--
+            <div class="panel panel-primary">
+			    <div class="panel-heading" >
+				    <span class="small text-muted" style="color:white"><strong>Roadway Info</strong></span>
+                </div>
+                
+                <div class="panel-body" style="padding:3px">
+					<div id='infosidebar' style="margin-left:10px;"></div>									
+			    </div>    
+            </div> /.panel panel-primary *TOGGLE ROAD INFO*
+-->
+
+            <div class="panel-group"  id="accordian" style="margin:10px 0px 10px 0px;">
+                <div class="panel body"style="border-color:black;">
+                    <div class="panel-heading"style=" background-color:rgb(0,120,174); ">
+                        <a data-toggle="collapse" data-parent="#accordion_" href="#2">
+                            <span style="color:white"><b>Zoom To</b></span><br>
+                        </a>
+                    </div>
+                    <div id="2" class="panel-collapse collapse ">
+                        <div class="panel-body" style="padding: 5px 15px;">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy1" href="javascript:void(0);">&nbsp;&nbsp;East Windsor Township</button>
+                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy2" href="javascript:void(0);">&nbsp;&nbsp;Ewing Township</button>                    
+                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy3" href="javascript:void(0);">&nbsp;&nbsp;Hamilton Township</button>
+                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy4" href="javascript:void(0);">&nbsp;&nbsp;Hightstown Borough</button>
+                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy5" href="javascript:void(0);">&nbsp;&nbsp;Hopewell Borough</button>                 
+                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy6" href="javascript:void(0);">&nbsp;&nbsp;Hopewell Township</button>
+                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy7" href="javascript:void(0);">&nbsp;&nbsp;Lawrence Township</button>                 
+                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy8" href="javascript:void(0);">&nbsp;&nbsp;Pennington Borough</button>
+                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy9" href="javascript:void(0);">&nbsp;&nbsp;Princeton</button>                    
+                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy10" href="javascript:void(0);">&nbsp;&nbsp;Robbinsville Township</button>
+                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy11" href="javascript:void(0);">&nbsp;&nbsp;Trenton City</button>
+                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy12" href="javascript:void(0);">&nbsp;&nbsp;West Windsor Township</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.panel-group #accordian ZoomTo -->
+
+
+        </div><!-- #Sidebar (Entire Sidebar) -->
+    </div><!-- #Container --> 
+ 
+    <div class="modal fade" id="aboutModal">
+        <div class="modal-dialog"style="width:620px">
+            <div class="modal-content">
+                <div class="modal-header"></div>
+                <div class="modal-body">
+                    <ul id="aboutTabs" class="nav nav-tabs">
+                        <li class="active"><a href="#about" data-toggle="tab"><i class="icon-road"></i>&nbsp;About</a></li>
+                        <li><a href="#legend" data-toggle="tab"><i class="icon-picture"></i>&nbsp;Legend</a></li>   
+						<li><a href="#use" data-toggle="tab"><i class="icon-question-sign"></i>&nbsp;How to Use</a></li>
+						<li><a href="#contact" data-toggle="tab"><i class="icon-envelope"></i>&nbsp;Contact</a></li> 						 
+						<li><a href="#disclaimer" data-toggle="tab"><i class="icon-exclamation-sign"></i>&nbsp;Disclaimer</a></li>
+                    </ul>
+                    <div id="aboutTabsContent" class="tab-content" style="padding-top: 10px;">
+                        <div class="tab-pane fade active in" id="about">
+							<h3>What is Bikeability?</h3>
+                            <p>
+                                Bikeability is an estimate of how comfortable it is to bike along a roadway, and considers many factors, including traffic volumes, traffic speeds, pavement widths, and whether there is a usable shoulder. In cooperation with Mercer County, DVRPC staff calculated Bikeability Scores for Mercer County roadways using the Bicycle Level of Service (BLOS) model, which generates a BLOS grade for any roadway based on the above factors (and others). For details on the BLOS model and our method of analysis for the scores you see on the Mercer County Bikeability Map, please click <a href="pdf/process.pdf">here</a> to download an excerpt of a project memo that describes this process. After the initial scores were calculated, comments were submitted by site visitors to help improve the accuracy of the Bikeability Scores. Many of the scores you see on the site now have been adjusted based on these comments.
+                            </p>
+
+                            <h3>Purpose of this site:</h3>
+                            <p>
+                                This site is intended to be a resource for Mercer County residents and bicyclists to help them plan bicycle-friendly routes to ride, and also to help planners identify priority bicycle corridors and facilities to be considered in the future. We hope comments will help us improve the bikeability scores shown on the site, develop an effective route planning tool for cyclists, and provide information for agencies with jurisdiction over particular roads that will help them improve conditions for cyclists. Please note that particular roadways are owned and maintained by the State of New Jersey, the County of Mercer, and various municipalities. Planning, designing, funding, and constructing roadway improvements is a long and expensive process. We hope that the information gathered here will influence policy and project priorities for all relevant agencies; it is particularly relevant to the development of the Mercer County long-range transportation master plan. During this site's comment period, many site visitors suggested priority bike routes or corridors; these have been shared with planners preparing the new bicyle master plan for Mercer County.
+                            </p>
+                        </div>
+                        <div class="tab-pane fade" id="disclaimer">
+                            <p>
+                                The bikeability grades and other bicycle-related information on this map are in no way an endorsement or recommendation of a particular roadway for bicycling nor are they an indication that a roadway is intended for use by bicyclists. Rather, the ratings are a quantified trip planning tool for the individual adult bicyclist in the selection of roads meeting his or her experience, skill, and comfort levels. Potential hazards and obstructions may exist on the routes shown, and Mercer County and other relevant maintaining agencies in no way warrant the safety or fitness of the suggested routes. This map does not expand the liability of Mercer County and the other maintaining agencies beyond existing law. The user of this map bears full responsibility for his or her safety. 
+                             </p>	
+                        </div>
+						
+						<div class="tab-pane fade" id="legend">
+							<div class="media">
+								<a class="pull-left" href="#">
+									<img class="media-object" src="img/trails.png"style="height:13px;width:63px; margin-top:12px">
+								</a>
+								<div class="media-body">
+									<h4>Bikeable Mercer County Trails</h4>
+									<p>
+										These lines represent existing trails throughout Mercer County where bicycles are encouraged or permitted, 
+										and where the surface is rideable by any type of bike, including road bikes.
+									</p>
+									
+									<br />
+									
+									<p>
+										<strong>NOTE:</strong> We are still collecting additional information on existing bikeable trails. 
+										New trails will be added periodically; please check back for updated trails mapping.
+									</p>
+								</div>
+							</div>
+							
+							<div class="media">
+								<a class="pull-left" href="#">
+									<img class="media-object" src="img/railstation-50px.png"style="height:50px;width:50px; margin-top:12px; margin-right:13px">
+								</a>
+								<div class="media-body">
+									<h4>Rail Stations</h4>
+									<p>Rail stations within Mercer county.</p>
+								</div>
+							</div>
+						 
+							<h4>Major Roads</h4>
+							 
+							<div class="media">
+								<a class="pull-left" href="#">
+									<img class="media-object" src="img/excellent.png"style="height:13px;width:63px; margin-top:12px">
+								</a>
+								<div class="media-body">
+									<h5>Excellent</h5>
+									<p>These road segments are generally comfortable to bike along (BLOS grades A and B)</p>
+								</div>
+							</div>
+							
+							<div class="media">
+								<a class="pull-left" href="#">
+									<img class="media-object" src="img/fair.png"style="height:13px;width:63px; margin-top:12px">
+								</a>
+								<div class="media-body">
+									<h5>Fair</h5>  
+									<p>These road segments may present some issues, depending on your experience level (BLOS grades C and D)</p>
+								</div>
+							</div>
+							
+							<div class="media">
+								<a class="pull-left" href="#">
+									<img class="media-object" src="img/unsafe.png"style="height:13px;width:63px; margin-top:12px">
+								</a>
+								<div class="media-body">
+									<h5>Unfavorable</h5>  
+									<p>These road segments are generally not comfortable to bike along (BLOS grades E and F)</p>
+								</div>
+							</div>
+							
+							<div class="media">
+								<a class="pull-left" href="#">
+									<img class="media-object" src="img/unbikeable.png"style="height:13px;width:63px; margin-top:12px">
+								</a>
+								<div class="media-body">
+									<h5>Unbikeable</h5>
+									<p>Roadways on which bicycles cannot travel (limited access highways, highway access ramps and other selected “hazardous” routes)</p>
+								</div>
+							</div>
+					 
+							<h4>Minor Roads</h4>
+						   
+							<div class="media">
+								<a class="pull-left" href="#">
+									<img class="media-object" src="img/localA.png"style="height:13px;width:63px; margin-top:12px">
+								</a>
+								<div class="media-body">
+									<h5>Favorable</h5>
+									<p>These road segments are generally comfortable to bike along (BLOS grades A, B, or C)</p>
+								</div>
+							</div>
+							
+							<div class="media">
+								<a class="pull-left" href="#">
+									<img class="media-object" src="img/localD.png"style="height:13px;width:63px; margin-top:12px">
+								</a>
+								<div class="media-body">
+									<h5>Unfavorable</h5>
+									<p>These road segments are generally not comfortable to bike along (BLOS grades D, E, or F)</p>
+								</div>
+							</div>
+						</div>
+								 
+						<div class="tab-pane fade" id="use">
+							<p>
+							   At the top left of the map are zoom and pan/drag controls for moving around. The toolbar on the right has visible data layers highlighted in blue. Click to turn them on or off. Layers include bikeability scores for major and minor roads, off-road bikeable trails, places/attractors, as well as select comments submitted by site visitors during the open comment period. Details on comment types appear if you mouse over or 'hover' over the item for a moment. Clicking on a "place" (within the map) will display that place's name and type. Clicking on "zoom to" will bring up a menu of municipalities or rail stations you can focus in on. 
+							</p>			
+						</div>
+					
+						<div class="tab-pane fade" id="contact">
+							<p>
+								<strong>Gregory Krykewycz</strong>
+								<br/>
+									Manager 
+								<br/>
+									Office of Transit, Bicycle, and Pedestrian Planning
+								<br/>
+									Phone: 215-238-2945 
+								<br/>
+								<a class="one" href="mailto:gkrykewycz@dvrpc.org">gkrykewycz@dvrpc.org </a> 
+							</p>
+														
+						</div>
+					</div><!-- /#aboutTabsContent .tab-content -->
+                </div><!-- /.modal-body -->
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script> 
+	<script type="text/javascript" src="js/keydragzoom.js"></script>   
+	<script type="text/javascript" src="js/numeral.js"></script>   
+
+    <script>
+	
+    var map;
+	var MY_MAPTYPE_ID = 'Base Map';
+	var geoJsonObject;
+	
+    //var thejson;
+	var region = new google.maps.LatLng(40.2674, -74.7358);
+	
+    //ZoomTo Variables: Trail Network;
+    
+
+    function toggleLayer(dataLayer,id){
+        if ($('#'+id).is(':checked')){
+            dataLayer.setMap(map);
+        }
+        else {
+            dataLayer.setMap(null);
+        }
+    }
+
+
+	function initialize() {
+
+      // Create a simple map.
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 11,
+            center: {
+                lat: 40.2674, 
+                lng:-74.7358 
+            },
+            mapTypeId: google.maps.MapTypeId.ROADMAP,  
+    	    mapTypeControlOptions: {
+    	        mapTypeIds: [google.maps.MapTypeId.SATELLITE,google.maps.MapTypeId.ROADMAP,google.maps.MapTypeId.HYBRID],
+    	        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+            },
+            // draggableCursor: 'pointer', // every pixel is clickable.
+            streetViewControl: true //my favorite feature in V3!
+        });
+      
+        map.enableKeyDragZoom();  
+     
+        var styledMapOptions = {
+            name: "Map",
+    	    alt:"Show base map"
+        }; 
+      
+    /* var jayzMapType = new google.maps.StyledMapType(stylez, styledMapOptions);
+     map.mapTypes.set(MY_MAPTYPE_ID,jayzMapType);*/
+ 
+	    var bikeLayer = new google.maps.BicyclingLayer();
+        bikeLayer.setMap(map);
+
+	    data1 = new google.maps.Data();
+	    data1.loadGeoJson('data/MTN_84.js');
+	    data1.setMap(map);
+	    data1.setStyle(function (feature) {
+		    return {
+                strokeColor: '#6479B5',
+	            strokeWeight: 2.0,
+            	fill: true,
+            	clickable: true
+            }
+	    });
+
+
+		
+        data1.addListener('click', function(e) {
+	        data1.revertStyle();
+	        data1.overrideStyle(e.feature, { 
+	    //	clickable: true,
+	            fillOpacity: .7,   
+	            strokeColor: '#ff0000',
+	            strokeWeight: 4
+		    });
+        });	
+		
+        data1.addListener('click', function(e) {
+            var content = '<b>Trail Name: </b>'+e.feature.getProperty('TRAIL_NAME')
+                         +'<br><b>Agency: </b>'+ e.feature.getProperty('AGENCY')  
+                         +'<br><b>Status: </b>'+ e.feature.getProperty('STATUS')
+                         +'<br><b>Road: </b>'+e.feature.getProperty('ROAD')
+                		 +'<br><b>Type:  </b>'+e.feature.getProperty('TYPE')
+                		 +'<br><b>Material: </b> '+e.feature.getProperty('MATERIAL');
+	       
+            $('#infosidebar').html(content);
+        });
+
+   
+	    var imageRail = new google.maps.MarkerImage('img/railstation.png',
+	                    new google.maps.Size(24,24)
+                    );
+
+    	data2 = new google.maps.Data();
+        data2.loadGeoJson('data/RailStations.js');
+        data2.setMap(map);
+        data2.setStyle(function (feature) {
+            return {
+                clickable: true,      
+                icon:imageRail
+	        } 
+        });
+		
+        // Symbology for places //
+        var imgLibrary = new google.maps.MarkerImage('img/library.png',
+                         new google.maps.Size(24,24));
+        
+        var imgSchool = new google.maps.MarkerImage('img/school.png',
+                        new google.maps.Size(24,24));
+        
+        var imgBusiness = new google.maps.MarkerImage('img/office.png',
+                          new google.maps.Size(24,24));
+        
+        var imgCollege = new google.maps.MarkerImage('img/university2.png',
+                         new google.maps.Size(24,24));
+        
+        var imgGov = new google.maps.MarkerImage('img/gov-50.png',
+                     new google.maps.Size(50,50));
+        
+        var imgHospital = new google.maps.MarkerImage('img/hospital2.png',
+                          new google.maps.Size(24,24));
+        
+        var imgHospital2 = new google.maps.MarkerImage('img/hospital2.png',
+                          new google.maps.Size(24,24));
+        
+        var imgCult = new google.maps.MarkerImage('img/cult.png',
+                      new google.maps.Size(30,30));
+        
+        var imgPolice = new google.maps.MarkerImage('img/police.png',
+                        new google.maps.Size(24,24));
+        
+        var imgEMS = new google.maps.MarkerImage('img/hospital2.png',
+                     new google.maps.Size(24,24));
+        
+        var imgFire = new google.maps.MarkerImage('img/fire.png',
+                      new google.maps.Size(24,24));
+        
+        var imgPark = new google.maps.MarkerImage('img/park3.png',
+                      new google.maps.Size(24,24));
+        
+        var imgShop = new google.maps.MarkerImage('img/mall.png',
+                      new google.maps.Size(24,24));
+        
+        
+        data3 = new google.maps.Data();
+        data3.loadGeoJson('data/Places.js');
+    //  data3.setMap(map);
+        data3.setStyle(function (feature) {
+            var prop = feature.getProperty('TYPE');
+            var subtype = feature.getProperty('SUB_TYPE')
+            if (prop == ('School')) {
+                return {
+                    clickable: true,
+                    icon: imgSchool
+                } 
+            } else if (prop == ('College')) {
+                return {
+                    clickable: true,
+                    icon: imgCollege
+                }
+            } else if (prop == ('Business/Office Park')) {
+                return {
+                    clickable: true,
+                    icon: imgBusiness
+//                        path: google.maps.SymbolPath.CIRCLE,
+//                        scale:4,
+//                        fillColor: '#0000e5',
+//                        fillOpacity: 0.75,
+//                        strokeColor: 'white',
+//                        strokeWeight:1
+//                    }
+                } 
+            } else if (prop == ('Park') || prop == ('Recreational')) {
+                return {
+                    clickable: true,
+                    icon: imgPark
+                } 
+            } else if (prop == ('Medical') && subtype == ('Hospital')) {
+                return {
+                    clickable: true,
+                    icon: imgHospital
+                }
+            } else if (prop == ('Emergency') && subtype == ('Police')) {
+                return {
+                    clickable: true,
+                    icon: imgPolice
+                } 
+            } else if (prop == ('Emergency') && subtype == ('Hospital')) {
+                return {
+                    clickable: true,
+                    icon: imgHospital2
+                }
+            } else if (prop == ('Emergency') && subtype == ('EMS')){
+                return {
+                    clickable: true,
+                    icon: imgEMS
+                }
+            } else if (prop == ('Emergency') && subtype == ('Fire')) {
+                return {
+                    clickable:true,
+                    icon: imgFire
+                }            
+            } else if (prop == ('Emergency') && subtype == ('Fire EMS')) {
+                return {
+                    clickable: true,
+                    icon: imgFire
+                }
+            } else if (prop == ('Library')) {
+                return {
+                    clickable: true,
+                    icon: imgLibrary 
+                }
+            } else if (prop == ('Shopping Center')) {
+                return {
+                    clickable: true,
+                    icon: imgShop
+                } 
+            } else if (prop == ('Government')) {
+                return {
+                    clickable: true,
+                    icon: imgGov
+                } 
+            } else if (prop == ('Cultural')) {
+                return {
+                    clickable: true,
+                    icon: imgCult
+                } 
+            }
+        });
+
+    
+//      Place Information -- change to popup?
+        
+        data3.addListener('click', function(e) {
+            var content = '<b>Name: </b>'+e.feature.getProperty('NAME')
+                         +'<br><b>Address: </b>'+ e.feature.getProperty('ADDRESS')  
+                         +'<br><b>Type: </b>'+ e.feature.getProperty('TYPE');
+    	    $('#infosidebar').html(content);
+        });		
+		
+	    data4 = new google.maps.Data();
+	    data4.loadGeoJson('data/Excellent.js');
+    	data4.setMap(map);
+    	data4.setStyle(function (feature) {
+		    return {   
+                strokeColor: '#3AA566',
+			    strokeWeight: 3,
+        		fill: true,
+        		clickable: true
+	        }
+		});
+	
+        data4.addListener('click', function(e) {
+    	    data4.revertStyle();
+            data4.overrideStyle(e.feature,{ 
+	    //	 clickable: true,
+                fillOpacity: .7,   
+                strokeColor: '#ff0000' ,
+                strokeWeight: 4
+		    });
+        });		
+		
+        data4.addListener('click', function(e) {
+            var content = '<b>Lanes: </b>'+e.feature.getProperty('LANES')
+//                         +'<br><b>Pavement Width:</b> '+ e.feature.getProperty('PAV_WID')  
+//                         +'<br><b>Speed Limit: </b>'+ e.feature.getProperty('SPEED')
+//                         +'<br><b>Average AADT: </b> '+e.feature.getProperty('AADT_AVG')
+//                		 +'<br><b>Area Type </b> '+e.feature.getProperty('AREA_TYPE')
+                		 +'<br><b>Score: </b>'+e.feature.getProperty('SCORE')
+                		 +'<br><b>BLOS: </b>'+e.feature.getProperty('BLOS');
+
+	        $('#infosidebar').html(content);
+        });		
+	
+        data5 = new google.maps.Data();
+    	data5.loadGeoJson('data/Fair.js');
+    	data5.setMap(map);
+    	data5.setStyle(function (feature) {
+    		return {   
+                strokeColor: '#713AA5',
+    			strokeWeight: 3,
+        		fill: true,
+        		clickable: true
+	        }
+		});
+	
+        data5.addListener('click', function(e) {
+    	    data5.revertStyle();
+            data5.overrideStyle(e.feature,{ 
+    	    //	 clickable: true,
+                fillOpacity: .7,   
+                strokeColor: '#ff0000' ,
+                strokeWeight: 4
+    		});
+        });		
+		
+        data5.addListener('click', function(e) {
+        var content = '<b>Lanes: </b>'+e.feature.getProperty('LANES')
+//                     +'<br><b>Pavement Width:</b> '+ e.feature.getProperty('PAV_WID')  
+//                     +'<br><b>Speed Limit: </b>'+ e.feature.getProperty('SPEED')
+//                     +'<br><b>Average AADT: </b> '+numeral(e.feature.getProperty('AADT_AVG')).format('0,0')
+//            		 +'<br><b>Area Type </b> '+e.feature.getProperty('AREA_TYPE')
+            		 +'<br><b>Score: </b>'+e.feature.getProperty('SCORE')
+            		 +'<br><b>BLOS: </b>'+e.feature.getProperty('BLOS');
+
+            $('#infosidebar').html(content);
+        });
+
+	    data6 = new google.maps.Data();
+	    data6.loadGeoJson('data/Unfavorable.js');
+	    //data6.setMap(map);
+	    data6.setStyle(function (feature) {
+    		return {   
+                strokeColor: '#EDBE26',
+    			strokeWeight:3,
+        		fill: true,
+        		clickable: true
+    	    }
+		});
+		
+        data6.addListener('click', function(e) {
+    	    data6.revertStyle();
+            data6.overrideStyle(e.feature,{ 
+    	// clickable: true,
+                fillOpacity: .7,   
+                strokeColor: '#ff0000' ,
+                strokeWeight: 4
+        	});
+        });	
+		
+        data6.addListener('click', function(e) {
+            var content = '<b>Lanes: </b>'+e.feature.getProperty('LANES')
+//                         +'<br><b>Pavement Width:</b> '+ e.feature.getProperty('PAV_WID')  
+//                         +'<br><b>Speed Limit: </b>'+ e.feature.getProperty('SPEED')
+//                         +'<br><b>Average AADT: </b> '+e.feature.getProperty('AADT_AVG')
+//                		 +'<br><b>Area Type </b> '+e.feature.getProperty('AREA_TYPE')
+                		 +'<br><b>Score: </b>'+e.feature.getProperty('SCORE')
+                		 +'<br><b>BLOS: </b>'+e.feature.getProperty('BLOS');
+	   
+            $('#infosidebar').html(content);
+        });	
+	
+        data7 = new google.maps.Data();
+	    data7.loadGeoJson('data/Unbikeable.js');
+	    //data7.setMap(map);
+	    data7.setStyle(function (feature) {
+		    return {   
+                strokeColor: '#E83A28',
+    			strokeWeight: 3,
+        		fill: true,
+        		clickable: true
+	        }
+		});
+		
+        data7.addListener('click', function(e) {
+    	    data7.revertStyle();
+            data7overrideStyle(e.feature, { 
+	    //	 clickable: true,
+                fillOpacity: .7,   
+                strokeColor: '#ff0000' ,
+                strokeWeight: 4
+		    });
+        });	
+		
+        data7.addListener('click', function(e) {
+            var content = '<b>Lanes: </b>'+e.feature.getProperty('LANES')
+//                         +'<br><b>Pavement Width:</b> '+ e.feature.getProperty('PAV_WID')  
+//                         +'<br><b>Speed Limit: </b>'+ e.feature.getProperty('SPEED')
+//                         +'<br><b>Average AADT: </b> '+e.feature.getProperty('AADT_AVG')
+//                		 +'<br><b>Area Type </b> '+e.feature.getProperty('AREA_TYPE')
+                		 +'<br><b>Score: </b>'+e.feature.getProperty('SCORE')
+                		 +'<br><b>BLOS: </b>'+e.feature.getProperty('BLOS');
+
+	        $('#infosidebar').html(content);
+        });	
+	
+        data8 = new google.maps.Data();
+    	data8.loadGeoJson('data/Minor_Favorable.js');
+    	//data8.setMap(map);
+    	data8.setStyle(function (feature) {
+		    return {   
+                strokeColor: '#515151',
+    			strokeWeight: 2,
+        		fill: true,
+        		clickable: true
+	        }
+		});	
+		
+        data8.addListener('click', function(e) {
+    	    data8.revertStyle();
+            data8.overrideStyle(e.feature,{ 
+    	//	clickable: true,
+                fillOpacity: .7,   
+                strokeColor: '#ff0000' ,
+                strokeWeight: 4
+        	});
+        });	
+		
+        data8.addListener('click', function(e) {
+            var content = '<b>Lanes: </b>'+e.feature.getProperty('LANES')
+//                         +'<br><b>Pavement Width:</b> '+ e.feature.getProperty('PAV_WID')  
+//                         +'<br><b>Speed Limit: </b>'+ e.feature.getProperty('SPEED')
+//                         +'<br><b>Average AADT: </b> '+e.feature.getProperty('AADT_AVG')
+//                		 +'<br><b>Area Type </b> '+e.feature.getProperty('AREA_TYPE')
+                		 +'<br><b>Score: </b>'+e.feature.getProperty('SCORE')
+                		 +'<br><b>BLOS: </b>'+e.feature.getProperty('BLOS');
+	   
+            $('#infosidebar').html(content);
+        });	
+	
+        data9 = new google.maps.Data();
+    	data9.loadGeoJson('data/Minor_Unfavorable.js');
+    	//data9.setMap(map);
+    	data9.setStyle(function (feature) {
+		    return {   
+                strokeColor: '#F37D80',
+			    strokeWeight:2,
+        		fill: true,
+        		clickable: true
+	        }
+		});
+	
+        data9.addListener('click', function(e) {
+    	    data9.revertStyle();
+            data9.overrideStyle(e.feature,{ 
+    	 //	 clickable: true,
+                fillOpacity: .7,   
+                strokeColor: '#ff0000' ,
+                strokeWeight: 4
+        	});
+        });		
+		
+        data9.addListener('click', function(e) {
+            var content = '<b>Lanes: </b>'+e.feature.getProperty('LANES')
+//                         +'<br><b>Pavement Width:</b> '+ e.feature.getProperty('PAV_WID')  
+//                         +'<br><b>Speed Limit: </b>'+ e.feature.getProperty('SPEED')
+//                         +'<br><b>Average AADT: </b> '+e.feature.getProperty('AADT_AVG')
+//                		 +'<br><b>Area Type </b> '+e.feature.getProperty('AREA_TYPE')
+                		 +'<br><b>Score: </b>'+e.feature.getProperty('SCORE')
+                		 +'<br><b>BLOS: </b>'+e.feature.getProperty('BLOS');
+
+	        $('#infosidebar').html(content);
+        });	
+
+		$.getJSON('data/MunicipalBoundary.js', function(d) {
+			var data = new google.maps.Data({
+                map: map, 
+                style:{
+                    stroke:true,
+                    fillColor:'none',
+                    strokeColor: 'black',
+                    strokeWeight: 1.5,
+                    fill: true, 
+                    opacity: 1,
+                    fillOpacity:0, 
+                    clickable: false 
+                }
+            });
+			data.addGeoJson(d);
+		});
+
+		$.getJSON('data/CountyBoundary.js', function(d) {
+			var data = new google.maps.Data({
+				map: map, 
+				style: {
+					stroke:true,
+					fillColor:'none',
+					strokeColor: '#000',
+					strokeWeight: 5,
+					fill: true, 
+					opacity: 1,
+					fillOpacity:0, 
+					clickable: false 
+				}
+			});
+			data.addGeoJson(d);
+		});
+
+        $("#zoomToStudy1").click(function(){
+            map.setCenter(new google.maps.LatLng(40.260600, -74.52942));
+            map.setZoom(13);
+        });
+
+        $("#zoomToStudy2").click(function(){
+            map.setCenter(new google.maps.LatLng(40.265030, -74.80056));
+            map.setZoom(13);
+        });
+
+        $("#zoomToStudy3").click(function(){
+            map.setCenter(new google.maps.LatLng(40.204640,-74.67638));
+            map.setZoom(13);
+        });
+
+        $("#zoomToStudy4").click(function(){
+            map.setCenter(new google.maps.LatLng(40.268600, -74.52528));
+            map.setZoom(15);
+        });
+
+        $("#zoomToStudy5").click(function(){
+            map.setCenter(new google.maps.LatLng(40.389300, -74.76382));
+            map.setZoom(15);
+        });
+
+        $("#zoomToStudy6").click(function(){
+            map.setCenter(new google.maps.LatLng(40.346240, -74.80683));
+            map.setZoom(12);
+        });
+
+        $("#zoomToStudy7").click(function(){
+            map.setCenter(new google.maps.LatLng(40.295380, -74.72054));
+            map.setZoom(13);
+        });
+
+        $("#zoomToStudy8").click(function(){
+            map.setCenter(new google.maps.LatLng(40.326260, -74.79075));
+            map.setZoom(15);
+        });
+
+        $("#zoomToStudy9").click(function(){
+            map.setCenter(new google.maps.LatLng(40.356240, -74.66933));
+            map.setZoom(14);
+        });
+
+        $("#zoomToStudy10").click(function(){
+            map.setCenter(new google.maps.LatLng(40.222000, -74.59099));
+            map.setZoom(13);
+        });
+
+        $("#zoomToStudy11").click(function(){
+            map.setCenter(new google.maps.LatLng(40.223690, -74.76414));
+            map.setZoom(13);
+        });
+
+        $("#zoomToStudy12").click(function(){
+            map.setCenter(new google.maps.LatLng(40.289710, -74.62665));
+            map.setZoom(13);
+        });
+
+
+        google.maps.event.addListener(map, 'click', function() {
+            data1.revertStyle();
+            data4.revertStyle();
+            data5.revertStyle();
+            data6.revertStyle();
+            data7.revertStyle();
+            data8.revertStyle();
+            data9.revertStyle();
+        });
+  
+    }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </body>
+</html>
