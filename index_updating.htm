@@ -243,14 +243,30 @@
                 <li class="dropdown">    
                     <a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown" style="background-color:rgb(0,120,174)"><i class="glyphicon glyphicon-wrench" style="color: white"></i>&nbsp;&nbsp;Tools and Data <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-							<li id="zoomToRegion"><a href="javascript:void(0);"><i class="icon-fullscreen"></i>&nbsp;&nbsp;Zoom To Full Extent</a></li>
+				        <li id="zoomToRegion"><a href="javascript:void(0);"><i class="icon-fullscreen"></i>&nbsp;&nbsp;Zoom To Full Extent</a></li>
                   <!--       <li><a href="#" onclick="$('#legendModal').modal('show'); return false;"><i class="icon-picture"></i>&nbsp;&nbsp;Show Legend</a></li> -->
+                    </ul>
+                </li>
+                <li><a id="dropdown" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown" style="background-color: rgb(0,120,174)"><i class="glyphicon glyphicon-globe" style="color:white"></i>&nbsp;&nbsp;Townships<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li id="zoomToStudy1"><a href="javascript:void(0);">&nbsp;&nbsp; East Windsor</a></li>
+                        <li id="zoomToStudy2"><a href="javascript:void(0);">&nbsp;&nbsp; Ewing Township</a></li>
+                        <li id="zoomToStudy3"><a href="javascript:void(0);">&nbsp;&nbsp; Hamilton Township</a></li>
+                        <li id="zoomToStudy4"><a href="javascript:void(0);">&nbsp;&nbsp; Hightstown Borough</a></li>
+                        <li id="zoomToStudy5"><a href="javascript:void(0);">&nbsp;&nbsp; Hopewell Borough</a></li>
+                        <li id="zoomToStudy6"><a href="javascript:void(0);">&nbsp;&nbsp; Hopewell Township</a></li>
+                        <li id="zoomToStudy7"><a href="javascript:void(0);">&nbsp;&nbsp; Lawrence Township</a></li>
+                        <li id="zoomToStudy8"><a href="javascript:void(0);">&nbsp;&nbsp; Pennington Borough</a></li>
+                        <li id="zoomToStudy9"><a href="javascript:void(0);">&nbsp;&nbsp; Princeton</a></li>
+                        <li id="zoomToStudy10"><a href="javascript:void(0);">&nbsp;&nbsp; Robbinsville Township</a></li>
+                        <li id="zoomToStudy11"><a href="javascript:void(0);">&nbsp;&nbsp; Trenton City</a></li>
+                        <li id="zoomToStudy12"><a href="javascript:void(0);">&nbsp;&nbsp; West Windsor Township</a></li>
                     </ul>
                 </li>
             </ul>
         </div><!--/.navbar-collapse -->
     </div>
-
+      
     <div class="row" id="container">
         <div class="col-sm-8 col-lg-8" id="map">
     	    <div id='title'></div>	
@@ -282,60 +298,67 @@
 	                            <input id="rail" type="checkbox"  onClick="toggleLayer(data2,'rail')" checked>
 	                            <img src='img/railstation.png' width='24' height='24'> &nbsp;Rail Stations in Mercer County
 	                        </label>
-	                    </div>   									
+	                    </div>   									  	
 							
-	                    <div class="checkbox">
-	                        <label>
-	                            <input id="places" type="checkbox"  onClick="toggleLayer(data3,'places')" >
-	                            <img src='img/legend2.png' class='img-responsive' width='426' height='101'> 
-	                        </label>
-	                    </div>   	
-									
-						<b>Major Roads</b><br>
-									
-						<div class="checkbox">
-	                        <label>
-	                            <input id="Excellent" type="checkbox"  onClick="toggleLayer(data4,'Excellent')" checked>
-	                            <img src='img/excellent.png' width='40' height='8'> &nbsp;Excellent
-	                        </label>
-	                    </div>   	
-						
-	                    <div class="checkbox">
-	                        <label>
-	                            <input id="Fair" type="checkbox"  onClick="toggleLayer(data5,'Fair')" checked>
-	                            <img src='img/fair.png' width='40' height='8'> &nbsp;Fair
-	                        </label>
-	                    </div>   	
-						
-	                    <div class="checkbox">
-	                        <label>
-	                            <input id="UnFav" type="checkbox"  onClick="toggleLayer(data6,'UnFav')" >
-	                            <img src='img/unsafe.png' width='40' height='8'> &nbsp;Unfavorable
-	                        </label>
-	                    </div>   
-						
-	                    <div class="checkbox">
-	                        <label>
-	                            <input id="UnBike" type="checkbox"  onClick="toggleLayer(data7,'UnBike')" >
-	                            <img src='img/unbikeable.png' width='40' height='8'> &nbsp;Unbikeable
-	                        </label>
-	                    </div> 
-										 
-						<b>Minor Roads</b><br>
-						
-                        <div class="checkbox">
-                            <label>
-                                <input id="Fav" type="checkbox"  onClick="toggleLayer(data8,'Fav')" >
-                                <img src='img/localA.png' width='40' height='8'> &nbsp;Favorable
-                            </label>
-                        </div> 
-						
-                        <div class="checkbox">
-                            <label>
-                                <input id="UnFav" type="checkbox"  onClick="toggleLayer(data9,'UnFav')" >
-                                <img src='img/localD.png' width='40' height='8'> &nbsp;Unfavorable
-                            </label>
-                        </div> 
+                        <div id="majorRoads" style="float: left">
+                            <b>Major Roads</b><br>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input id="Excellent" type="checkbox"  onClick="toggleLayer(data4,'Excellent')" checked>
+                                    <img src='img/excellent.png' width='40' height='8'> &nbsp;Excellent
+                                </label>
+                            </div>   	
+
+                            <div class="checkbox">
+                                <label>
+                                    <input id="Fair" type="checkbox"  onClick="toggleLayer(data5,'Fair')" checked>
+                                    <img src='img/fair.png' width='40' height='8'> &nbsp;Fair
+                                </label>
+                            </div>   	
+
+                            <div class="checkbox">
+                                <label>
+                                    <input id="UnFav" type="checkbox"  onClick="toggleLayer(data6,'UnFav')" >
+                                    <img src='img/unsafe.png' width='40' height='8'> &nbsp;Unfavorable
+                                </label>
+                            </div>   
+
+                            <div class="checkbox">
+                                <label>
+                                    <input id="UnBike" type="checkbox"  onClick="toggleLayer(data7,'UnBike')" >
+                                    <img src='img/unbikeable.png' width='40' height='8'> &nbsp;Unbikeable
+                                </label>
+                            </div> 
+                        </div>
+                        
+                        <div id="minorRoads" style="float: right">
+                            <b>Minor Roads</b><br>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input id="Fav" type="checkbox"  onClick="toggleLayer(data8,'Fav')" >
+                                    <img src='img/localA.png' width='40' height='8'> &nbsp;Favorable
+                                </label>
+                            </div> 
+
+                            <div class="checkbox">
+                                <label>
+                                    <input id="UnFav" type="checkbox"  onClick="toggleLayer(data9,'UnFav')" >
+                                    <img src='img/localD.png' width='40' height='8'> &nbsp;Unfavorable
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div id="poi" style="clear: left">    
+                            <b>Points of Interest</b>
+                            <div class="checkbox">
+                                <label>
+                                    <input id="legend" type="checkbox"  onClick="toggleLayer(data3,'legend')" >
+                                    <img src='img/legend2.png' class='img-responsive' width='426' height='101'> 
+                                </label>
+                            </div>
+                        </div>
 					</div><!-- .panel-body -->
 	            </div><!-- #overlay-layers .panel-collapse collapse in -->
 			</div><!-- .panel panel-primary -->
@@ -364,32 +387,6 @@
             </div> /.panel panel-primary *TOGGLE ROAD INFO*
 -->
 
-            <div class="panel-group"  id="accordian" style="margin:10px 0px 10px 0px;">
-                <div class="panel body"style="border-color:black;">
-                    <div class="panel-heading"style=" background-color:rgb(0,120,174); ">
-                        <a data-toggle="collapse" data-parent="#accordion_" href="#2">
-                            <span style="color:white"><b>Zoom To</b></span><br>
-                        </a>
-                    </div>
-                    <div id="2" class="panel-collapse collapse ">
-                        <div class="panel-body" style="padding: 5px 15px;">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy1" href="javascript:void(0);">&nbsp;&nbsp;East Windsor Township</button>
-                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy2" href="javascript:void(0);">&nbsp;&nbsp;Ewing Township</button>                    
-                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy3" href="javascript:void(0);">&nbsp;&nbsp;Hamilton Township</button>
-                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy4" href="javascript:void(0);">&nbsp;&nbsp;Hightstown Borough</button>
-                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy5" href="javascript:void(0);">&nbsp;&nbsp;Hopewell Borough</button>                 
-                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy6" href="javascript:void(0);">&nbsp;&nbsp;Hopewell Township</button>
-                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy7" href="javascript:void(0);">&nbsp;&nbsp;Lawrence Township</button>                 
-                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy8" href="javascript:void(0);">&nbsp;&nbsp;Pennington Borough</button>
-                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy9" href="javascript:void(0);">&nbsp;&nbsp;Princeton</button>                    
-                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy10" href="javascript:void(0);">&nbsp;&nbsp;Robbinsville Township</button>
-                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy11" href="javascript:void(0);">&nbsp;&nbsp;Trenton City</button>
-                                <button type="button" class="btn btn-sm btn-block" id="zoomToStudy12" href="javascript:void(0);">&nbsp;&nbsp;West Windsor Township</button>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- /.panel-group #accordian ZoomTo -->
 
 
         </div><!-- #Sidebar (Entire Sidebar) -->
@@ -563,7 +560,7 @@
 	
     //ZoomTo Variables: Trail Network;
     
-
+        
     function toggleLayer(dataLayer,id){
         if ($('#'+id).is(':checked')){
             dataLayer.setMap(map);
@@ -572,6 +569,20 @@
             dataLayer.setMap(null);
         }
     }
+        
+//    //Individual toggle options for POI's
+//    function togglePoint(dataLayer,id){
+//        if ($('#'+id).is(':checked')){
+//            var point = dataLayer.getProperty('TYPE');
+//            if (point == 'School') {
+//                dataLayer.setMap(map);
+//            }
+//            else {
+//                dataLayer.setMap(null);
+//            }
+//        } 
+//    }
+//    
 
 
 	function initialize() {
