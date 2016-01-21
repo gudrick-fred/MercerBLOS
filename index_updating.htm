@@ -227,6 +227,12 @@
             list-style-type: none;
         }
         
+        .station-window {
+            width: 150px;
+            height: 40px;
+            text-align: left;
+        }
+        
         
     </style>
 
@@ -674,8 +680,7 @@
             name: "Map",
     	    alt:"Show base map"
         }; 
-
-      
+              
         var jayzMapType = new google.maps.StyledMapType($style, styledMapOptions);
         map.mapTypes.set(MY_MAPTYPE_ID,jayzMapType);
  
@@ -731,7 +736,32 @@
                 icon:imageRail
 	        } 
         });
-		
+        
+        
+        var infowindow = new google.maps.InfoWindow();
+        
+        data2.addListener('click', function(e){
+            infowindow.setContent("<div class='station-window'><b>Station: </b>" + e.feature.getProperty("STATION") + "<br><b>Line: </b>" + e.feature.getProperty("LINE") + "</div>");
+            infowindow.setPosition(e.feature.getGeometry().get());
+            infowindow.setOptions({
+                pixelOffset: new google.maps.Size(0,-30)
+            });
+            infowindow.open(map);
+        })
+        
+        
+//        data2.addListener('click', function(e){
+//            var contentString = '<div class="popup"><b>Station: </b>' + e.feature.getProperty('STATION')
+//                              + '<br><b>Line: </b>' + e.feature.getProperty('LINE')
+//                              + '</div>';
+//            var infowindow = new google.maps.InfoWindow({
+//                content: contentString
+//            });
+//            
+//            $('#infosidebar').html(contentString);
+//            
+//        });
+//		
         // Symbology for places //
         var imgLibrary = new google.maps.MarkerImage('img/library.png',
                          new google.maps.Size(24,24));
