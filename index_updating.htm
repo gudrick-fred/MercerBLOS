@@ -261,7 +261,14 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#aboutModal').modal('show'); return false;" style="background-color:rgb(0,120,174)"><i class="glyphicon glyphicon-info-sign" style="color: white"></i>&nbsp;&nbsp;About</a></li>
+                <li>
+                    <a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#aboutModal').modal('show'); return false;" style="background-color:rgb(0,120,174)"><i class="glyphicon glyphicon-info-sign" style="color: white"></i>&nbsp;&nbsp;About</a>
+                </li>
+                
+                <li>
+                    <a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#legendModal').modal('show'); return false;" style="background-color:rgb(0,120,174);"><i class="icon-picture" style="color:white;"></i>&nbsp;&nbsp;Legend</a>
+                </li>
+                
                 <li class="dropdown">    
                     <a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown" style="background-color:rgb(0,120,174)"><i class="glyphicon glyphicon-wrench" style="color: white"></i>&nbsp;&nbsp;Tools and Data <b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -417,60 +424,12 @@
         </div><!-- #Sidebar (Entire Sidebar) -->
     </div><!-- #Container --> 
     
-    <div class="modal fade" id="aboutDownload">
+    <div class="modal fade" id="legendModal">
         <div class="modal-dialog" style="width:620px">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" aria-hidden="true" data-dismiss="modal" type="button" style="color:white;">×</button>
-                    <h4 class="modal-title">Mercer County Datasets</h4>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        This dataset is an effort to approximate how comfortable every street in Mercer County, New Jersey, is to bike on, for the average bicyclist. It was created by first calculating Bicycle Level of Service (BLOS) ratings for every road segment in the county using GIS data, and then my “crowdsourcing” corrections to these ratings via a webmap interface. The final ratings are simplified into three “bikeability” categories: Excellent (LOS A+B), Fair (LOS C+D), and Unfavorable (LOS E+F).
-                    </p>
-                    <hr 75%=""></hr>
-                    <li class="download-left">
-                        <a class="downloadShape" href="Data/Shapefile.zip"><i class="glyphicon glyphicon-download-alt" style="margin-bottom:10px"></i>&nbsp;Shapefile <small style="opacity:0.6"> [5 MB zip] </small></a>
-                    </li>
-                    <li class="download-left">
-                        <a class="downloadShape" href="Data/GeoJSON.zip"><i class="glyphicon glyphicon-download-alt" style="margin-bottom:10px"></i>&nbsp;GeoJSON <small style="opacity:0.6"> [6 MB zip] </small></a>
-                    </li>
-                    <li class="download-left">
-                        <a class="downloadShape" href="Data/Excel.zip"><i class="glyphicon glyphicon-download-alt" style="margin-bottom:10px"></i>&nbsp;Spreadsheet <small style="opacity:0.6"> [1.2 MB zip] </small></a>
-                    </li>
-                    <hr 75%=""></hr>
-                </div>
-            </div>
-        </div>  
-    </div>
-      
-    <div class="modal fade" id="aboutModal">
-        <div class="modal-dialog"style="width:620px">
             <div class="modal-content">
                 <div class="modal-header"></div>
                 <div class="modal-body">
-                    <ul id="aboutTabs" class="nav nav-tabs">
-                        <li class="active"><a href="#about" data-toggle="tab"><i class="icon-road"></i>&nbsp;About</a></li>
-                        <li><a href="#legend" data-toggle="tab"><i class="icon-picture"></i>&nbsp;Legend</a></li>   
-						<li><a href="#use" data-toggle="tab"><i class="icon-question-sign"></i>&nbsp;How to Use</a></li>
-						<li><a href="#contact" data-toggle="tab"><i class="icon-envelope"></i>&nbsp;Contact</a></li> 						 
-						<li><a href="#disclaimer" data-toggle="tab"><i class="icon-exclamation-sign"></i>&nbsp;Disclaimer</a></li>
-                    </ul>
-                    <div id="aboutTabsContent" class="tab-content" style="padding-top: 10px;">
-                        <div class="tab-pane fade active in" id="about">
-							<h3>What is Bikeability?</h3>
-                            <p>
-                                Bikeability is an estimate of how comfortable it is to bike along a roadway, and considers many factors, including traffic volumes, traffic speeds, pavement widths, and whether there is a usable shoulder. In cooperation with Mercer County, DVRPC staff calculated Bikeability Scores for Mercer County roadways using the Bicycle Level of Service (BLOS) model, which generates a BLOS grade for any roadway based on the above factors (and others). For details on the BLOS model and our method of analysis for the scores you see on the Mercer County Bikeability Map, please click <a href="pdf/process.pdf">here</a> to download an excerpt of a project memo that describes this process. After the initial scores were calculated, comments were submitted by site visitors to help improve the accuracy of the Bikeability Scores. Many of the scores you see on the site now have been adjusted based on these comments.
-                            </p>
-
-                            <h3>Purpose of this site:</h3>
-                            <p>
-                                This site is intended to be a resource for Mercer County residents and bicyclists to help them plan bicycle-friendly routes to ride, and also to help planners identify priority bicycle corridors and facilities to be considered in the future. We hope comments will help us improve the bikeability scores shown on the site, develop an effective route planning tool for cyclists, and provide information for agencies with jurisdiction over particular roads that will help them improve conditions for cyclists. Please note that particular roadways are owned and maintained by the State of New Jersey, the County of Mercer, and various municipalities. Planning, designing, funding, and constructing roadway improvements is a long and expensive process. We hope that the information gathered here will influence policy and project priorities for all relevant agencies; it is particularly relevant to the development of the Mercer County long-range transportation master plan. During this site's comment period, many site visitors suggested priority bike routes or corridors; these have been shared with planners preparing the new bicyle master plan for Mercer County.
-                            </p>
-                        </div>
-                        
-						<div class="tab-pane fade" id="legend">
-							<div class="media">
+                            <div class="media">
 								<a class="pull-left" href="#">
 									<img class="media-object" src="img/trails.png"style="height:13px;width:63px; margin-top:12px">
 								</a>
@@ -561,10 +520,68 @@
 								<div class="media-body">
 									<h5>Unfavorable</h5>
 									<p>These road segments are generally not comfortable to bike along (BLOS grades D, E, or F)</p>
-								</div>
-							</div>
-						</div><!-- /#legend -->
-								 
+                                </div>
+				    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      
+    <div class="modal fade" id="aboutDownload">
+        <div class="modal-dialog" style="width:620px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" aria-hidden="true" data-dismiss="modal" type="button" style="color:white;">×</button>
+                    <h4 class="modal-title">Mercer County Datasets</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        This dataset is an effort to approximate how comfortable every street in Mercer County, New Jersey, is to bike on, for the average bicyclist. It was created by first calculating Bicycle Level of Service (BLOS) ratings for every road segment in the county using GIS data, and then my “crowdsourcing” corrections to these ratings via a webmap interface. The final ratings are simplified into three “bikeability” categories: Excellent (LOS A+B), Fair (LOS C+D), and Unfavorable (LOS E+F).
+                    </p>
+                    <hr 75%=""></hr>
+                    <li class="download-left">
+                        <a class="downloadShape" href="Data/Shapefile.zip"><i class="glyphicon glyphicon-download-alt" style="margin-bottom:10px"></i>&nbsp;Shapefile <small style="opacity:0.6"> [5 MB zip] </small></a>
+                    </li>
+                    <li class="download-left">
+                        <a class="downloadShape" href="Data/GeoJSON.zip"><i class="glyphicon glyphicon-download-alt" style="margin-bottom:10px"></i>&nbsp;GeoJSON <small style="opacity:0.6"> [6 MB zip] </small></a>
+                    </li>
+                    <li class="download-left">
+                        <a class="downloadShape" href="Data/Excel.zip"><i class="glyphicon glyphicon-download-alt" style="margin-bottom:10px"></i>&nbsp;Spreadsheet <small style="opacity:0.6"> [1.2 MB zip] </small></a>
+                    </li>
+                    <hr 75%=""></hr>
+                </div>
+            </div>
+        </div>  
+    </div>
+      
+    <div class="modal fade" id="aboutModal">
+        <div class="modal-dialog"style="width:620px">
+            <div class="modal-content">
+                <div class="modal-header"></div>
+                <div class="modal-body">
+                    <ul id="aboutTabs" class="nav nav-tabs">
+                        <li class="active"><a href="#about" data-toggle="tab"><i class="icon-road"></i>&nbsp;About</a></li>
+                        <li><a href="#purpose" data-toggle="tab"><i class="glyphicon glyphicon-ok-circle"></i>&nbsp;Purpose</a></li>   
+						<li><a href="#use" data-toggle="tab"><i class="icon-question-sign"></i>&nbsp;How to Use</a></li>
+						<li><a href="#contact" data-toggle="tab"><i class="icon-envelope"></i>&nbsp;Contact</a></li> 						 
+						<li><a href="#disclaimer" data-toggle="tab"><i class="icon-exclamation-sign"></i>&nbsp;Disclaimer</a></li>
+                    </ul>
+                    <div id="aboutTabsContent" class="tab-content" style="padding-top: 10px;">
+                        <div class="tab-pane fade active in" id="about">
+							<h3>What is Bikeability?</h3>
+                            <p>
+                                Bikeability is an estimate of how comfortable it is to bike along a roadway, and considers many factors, including traffic volumes, traffic speeds, pavement widths, and whether there is a usable shoulder. In cooperation with Mercer County, DVRPC staff calculated Bikeability Scores for Mercer County roadways using the Bicycle Level of Service (BLOS) model, which generates a BLOS grade for any roadway based on the above factors (and others). For details on the BLOS model and our method of analysis for the scores you see on the Mercer County Bikeability Map, please click <a href="pdf/process.pdf">here</a> to download an excerpt of a project memo that describes this process. After the initial scores were calculated, comments were submitted by site visitors to help improve the accuracy of the Bikeability Scores. Many of the scores you see on the site now have been adjusted based on these comments.
+                            </p>
+
+                        </div>
+                        
+                        <div class="tab-pane fade" id="purpose">
+							<h3>Purpose of this site:</h3>
+                            <p>
+                                This site is intended to be a resource for Mercer County residents and bicyclists to help them plan bicycle-friendly routes to ride, and also to help planners identify priority bicycle corridors and facilities to be considered in the future. We hope comments will help us improve the bikeability scores shown on the site, develop an effective route planning tool for cyclists, and provide information for agencies with jurisdiction over particular roads that will help them improve conditions for cyclists. Please note that particular roadways are owned and maintained by the State of New Jersey, the County of Mercer, and various municipalities. Planning, designing, funding, and constructing roadway improvements is a long and expensive process. We hope that the information gathered here will influence policy and project priorities for all relevant agencies; it is particularly relevant to the development of the Mercer County long-range transportation master plan. During this site's comment period, many site visitors suggested priority bike routes or corridors; these have been shared with planners preparing the new bicyle master plan for Mercer County.
+                            </p>			
+						</div>
+                    		 
 						<div class="tab-pane fade" id="use">
 							<p>
 							   At the top left of the map are zoom and pan/drag controls for moving around. The toolbar on the right has visible data layers highlighted in blue. Click to turn them on or off. Layers include bikeability scores for major and minor roads, off-road bikeable trails, places/attractors, as well as select comments submitted by site visitors during the open comment period. Details on comment types appear if you mouse over or 'hover' over the item for a moment. Clicking on a "place" (within the map) will display that place's name and type. Clicking on "zoom to" will bring up a menu of municipalities or rail stations you can focus in on. 
