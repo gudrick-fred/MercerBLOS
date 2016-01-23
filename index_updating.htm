@@ -658,22 +658,42 @@
 	function initialize() {
 
         var $style = [
-          {
-            "featureType": "poi.park",
-            "elementType": "geometry.fill",
-            "stylers": [
-              { "hue": "#4cff00" },
-              { "saturation": -15 },
-              { "lightness": -15 }
-            ]
-          },{
-            "featureType": "poi.park",
-            "elementType": "labels.text.fill",
-            "stylers": [
-              { "hue": "#00ffc4" },
-              { "lightness": -35 }
-            ]
-          }
+//          {
+//            "featureType": "poi.park",
+//            "elementType": "geometry.fill",
+//            "stylers": [
+//              { "hue": "#4cff00" },
+//              { "saturation": -15 },
+//              { "lightness": -15 }
+//            ]
+//          },{
+//            "featureType": "poi.park",
+//            "elementType": "labels.text.fill",
+//            "stylers": [
+//              { "hue": "#00ffc4" },
+//              { "lightness": -35 }
+//            ]
+//          }
+            {
+                "stylers": [
+                  { "hue": "#d4ff00" },
+                  { "saturation": -99 }
+                ]
+              },{
+                "featureType": "poi.park",
+                "elementType": "geometry",
+                "stylers": [
+                  { "hue": "#00ffc4" },
+                  { "saturation": 35 }
+                ]
+              },{
+                "featureType": "poi.park",
+                "elementType": "labels.text",
+                "stylers": [
+                  { "color": "#4c714c" },
+                  { "weight": 0.5 }
+                ]
+              }
         ];
       // Create a simple map.
         map = new google.maps.Map(document.getElementById('map'), {
