@@ -21,6 +21,29 @@
     <!-- Custom styles for this template -->
     <style>
         
+        @font-face {
+            font-family: Oswald;
+            src: url(fonts/Oswald-Regular.ttf);
+            font-weight: normal;            
+        }
+        
+        @font-face {
+            font-family: Oswald;
+            src: url(fonts/Oswald-Bold.ttf);
+            font-weight: bold;
+        }
+        
+        @font-face {
+            font-family: Oswald;
+            src: url(fonts/Oswald-RegularItalic.ttf);
+            font-style: italic;
+            font-weight: normal;
+        }
+        
+        * {
+            font-family: 'Oswald';
+        }
+        
         html, body, #map, #sidebar, #container {
             height: 100%;
             margin: 0px;
@@ -32,6 +55,10 @@
         
         label {
             font-weight: normal;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Oswald';
         }
         
         .panel-heading a:hover {
@@ -233,7 +260,6 @@
             text-align: left;
         }
         
-        
     </style>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -262,7 +288,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#aboutModal').modal('show'); return false;" style="background-color:rgb(0,120,174)"><i class="glyphicon glyphicon-info-sign" style="color: white"></i>&nbsp;&nbsp;About</a>
+                    <a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#aboutModal').modal('show'); return false;" style="background-color:rgb(0,120,174);"><i class="glyphicon glyphicon-info-sign" style="color: white"></i>&nbsp;&nbsp;About</a>
                 </li>
                 
                 <li>
@@ -300,7 +326,7 @@
     </div>
       
     <div class="row" id="container">
-        <div class="col-sm-8 col-lg-9" id="map">
+        <div class="col-sm-8 col-md-9 col-lg-9" id="map">
     	    <div id='title'></div>	
             <div id="loading" style="display: block;">
                 <div class="loading-indicator">
@@ -310,7 +336,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4 col-lg-3" id="sidebar" style="padding: 10px; overflow: auto;">
+        <div class="col-sm-4 col-md-3 col-lg-3" id="sidebar" style="padding: 10px; overflow: auto;">
     		<div class="panel panel-primary">
     			<div class="panel-heading" >
     			   <span class="small text-muted" style="color:white"><strong>Layers</strong></span>
@@ -364,7 +390,7 @@
                             </div> 
                         </div>
                         
-                        <div id="minorRoads" style="float: right; width: 50%;">
+                        <div id="minorRoads" style="clear:left;">
                             <b>Minor Roads</b><br>
 
                             <div class="checkbox">
@@ -382,6 +408,20 @@
                             </div>
                         </div>
                         
+                        <div id="poi" style="clear:both;">
+                            <b>Points of Interest</b>
+                            <div class="checkbox"><input type="checkbox" class="layer" name="overLayers" id="business" onClick="toggleLayer(data3,'business')" checked><img src='img/office.png' width='24' height='24'>Business Center</div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="cultural" checked><img src='img/cult.png' width='24' height='24'>Cultural</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="fire" checked><img src='img/fire.png' width='24' height='24'>Fire Department</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="government" checked><img src='img/gov-50.png' width='24' height='24'>Post Office</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="hospital" checked><img src='img/hospital2.png' width='24' height='24'>Hospital - EMS</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="library" checked><img src='img/library.png' width='24' height='24'>Library</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="park" checked><img src='img/park3.png' width='24' height='24'>Park</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="police" checked><img src='img/police.png' width='24' height='24'>Police Department</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="shopping" checked><img src='img/mall.png' width='24' height='24'>Shopping Center</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="school" checked><img src='img/school.png' width='24' height='24'>Schools (K-12)</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="university" checked><img src='img/university2.png' width='24' height='24'>University</label></div>
+<!--
                         <div id="poi" style="clear: both;">    
                             <b>Points of Interest</b>
                             <div class="checkbox">
@@ -391,6 +431,7 @@
                                 </label>
                             </div>
                         </div>
+-->
 					</div><!-- .panel-body -->
 	            </div><!-- #overlay-layers .panel-collapse collapse in -->
 			</div><!-- .panel panel-primary -->
@@ -632,6 +673,7 @@
     
         
     function toggleLayer(dataLayer,id){
+        var e = dataLayer.properties
         if ($('#'+id).is(':checked')){
             dataLayer.setMap(map);
         }
@@ -639,20 +681,20 @@
             dataLayer.setMap(null);
         }
     }
+    
+    
         
-//    //Individual toggle options for POI's
-//    function togglePoint(dataLayer,id){
-//        if ($('#'+id).is(':checked')){
-//            var point = dataLayer.getProperty('TYPE');
-//            if (point == 'School') {
-//                dataLayer.setMap(map);
-//            }
-//            else {
-//                dataLayer.setMap(null);
-//            }
-//        } 
-//    }
-//    
+    //Individual toggle options for POI's
+    function togglePoint(dataLayer,id){
+        var x = dataLayer.feature;
+        var prop = x.getProperty('TYPE');
+        if ($('#'+id).is(':checked') && prop == 'Business/Office Park'){
+            dataLayer.setMap(map);
+        } else {
+            dataLayer.setMap(null);
+        }
+    }
+    
     
         
 	function initialize() {
@@ -717,6 +759,11 @@
             name: "Map",
     	    alt:"Show base map"
         }; 
+        
+        function showLayer(id) {
+            var lg =mapLayers[id];
+            
+        }
               
         var jayzMapType = new google.maps.StyledMapType($style, styledMapOptions);
         map.mapTypes.set(MY_MAPTYPE_ID,jayzMapType);
