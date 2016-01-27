@@ -409,18 +409,19 @@
                         </div>
                         
                         <div id="poi" style="clear:both;">
+                            <!-- onClick="toggleLayer(data3,'business')" -->
                             <b>Points of Interest</b>
-                            <div class="checkbox"><input type="checkbox" class="layer" name="overLayers" id="business" onClick="toggleLayer(data3,'business')" checked><img src='img/office.png' width='24' height='24'>Business Center</div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="cultural" checked><img src='img/cult.png' width='24' height='24'>Cultural</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="fire" checked><img src='img/fire.png' width='24' height='24'>Fire Department</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="government" checked><img src='img/gov-50.png' width='24' height='24'>Post Office</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="hospital" checked><img src='img/hospital2.png' width='24' height='24'>Hospital - EMS</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="library" checked><img src='img/library.png' width='24' height='24'>Library</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="park" checked><img src='img/park3.png' width='24' height='24'>Park</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="police" checked><img src='img/police.png' width='24' height='24'>Police Department</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="shopping" checked><img src='img/mall.png' width='24' height='24'>Shopping Center</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="school" checked><img src='img/school.png' width='24' height='24'>Schools (K-12)</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="university" checked><img src='img/university2.png' width='24' height='24'>University</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="business" data-id="Business/Office Park" data-layer="data3" checked><img src='img/office.png' width='24' height='24'>Business Center</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="cultural" data-layer="data3" ><img src='img/cult.png' width='24' height='24'>Cultural</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="fire" data-layer="data3" ><img src='img/fire.png' width='24' height='24'>Fire Department</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="government" data-layer="data3" ><img src='img/gov-50.png' width='24' height='24'>Post Office</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="hospital" data-layer="data3"><img src='img/hospital2.png' width='24' height='24'>Hospital - EMS</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="library" data-layer="data3"><img src='img/library.png' width='24' height='24'>Library</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="park" data-layer="data3"><img src='img/park3.png' width='24' height='24'>Park</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="police" data-layer="data3"><img src='img/police.png' width='24' height='24'>Police Department</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="shopping" data-layer="data3"><img src='img/mall.png' width='24' height='24'>Shopping Center</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="school" data-layer="data3"><img src='img/school.png' width='24' height='24'>Schools (K-12)</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="university" data-layer="data3"><img src='img/university2.png' width='24' height='24'>University</label></div>
 <!--
                         <div id="poi" style="clear: both;">    
                             <b>Points of Interest</b>
@@ -428,6 +429,7 @@
                                 <label>
                                     <input id="legend1" type="checkbox"  onClick="toggleLayer(data3,'legend1')" >
                                     <img src='img/legend2.png' class='img-responsive' width='426' height='101'> 
+                                </label>
                                 </label>
                             </div>
                         </div>
@@ -669,32 +671,37 @@
     //var thejson;
 	var region = new google.maps.LatLng(40.2674, -74.7358);
 	
-    //ZoomTo Variables: Trail Network;
+    
+    
+//    $('.layer').on('change', function(e){
+//        var item = $(this),
+//            layer_id = item.attr('data-id'),
+//            dataLayer = window[$(this).attr('data-layer')];
+//        if (item.prop('checked')){
+//            dataLayer.forEach(function(d){
+////                var prop = d.getProperty('TYPE');
+//                if(d.getProperty('TYPE') === layer_id){
+//                    //dataLayer.setMap(map);
+//                    
+//                    var maps = data3.getMap();
+//                    console.log(maps);
+//                    maps.data.overrideStyle(d.R, {visible: false});
+//                }
+//            });
+//        }else{
+//            dataLayer.setMap(null);
+//        }
+//    });
     
         
     function toggleLayer(dataLayer,id){
-        var e = dataLayer.properties
         if ($('#'+id).is(':checked')){
             dataLayer.setMap(map);
         }
         else {
             dataLayer.setMap(null);
         }
-    }
-    
-    
-        
-    //Individual toggle options for POI's
-    function togglePoint(dataLayer,id){
-        var x = dataLayer.feature;
-        var prop = x.getProperty('TYPE');
-        if ($('#'+id).is(':checked') && prop == 'Business/Office Park'){
-            dataLayer.setMap(map);
-        } else {
-            dataLayer.setMap(null);
-        }
-    }
-    
+    }  
     
         
 	function initialize() {
@@ -889,7 +896,7 @@
         
         data3 = new google.maps.Data();
         data3.loadGeoJson('data/Places.js');
-    //  data3.setMap(map);
+        data3.setMap(map);
         data3.setStyle(function (feature) {
             var prop = feature.getProperty('TYPE');
             var subtype = feature.getProperty('SUB_TYPE')
