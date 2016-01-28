@@ -411,16 +411,16 @@
                         <div id="poi">
                             <b>Points of Interest</b>
                             <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="business" data-id="Business/Office Park" data-layer="data3" checked><img src='img/office.png' width='24' height='24'>Business Center</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="cultural" data-id="Cultural" data-layer="data3" checked><img src='img/cult.png' width='24' height='24'>Cultural</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="fire" data-id="Fire" data-layer="data3" checked><img src='img/fire.png' width='24' height='24'>Fire Department</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="government" data-id="Government" data-layer="data3" checked><img src='img/gov-50.png' width='24' height='24'>Post Office</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="hospital" data-id="Hospital" data-layer="data3" checked><img src='img/hospital2.png' width='24' height='24'>Hospital - EMS</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="library" data-id="Library" data-layer="data3" checked><img src='img/library.png' width='24' height='24'>Library</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="park" data-id="Park" data-layer="data3" checked><img src='img/park3.png' width='24' height='24'>Park</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="police" data-id="Police" data-layer="data3" checked><img src='img/police.png' width='24' height='24'>Police Department</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="shopping" data-id="Shopping Center" data-layer="data3" checked><img src='img/mall.png' width='24' height='24'>Shopping Center</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="school" data-id="School" data-layer="data3" checked><img src='img/school.png' width='24' height='24'>Schools (K-12)</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="university" data-id="College" data-layer="data3" checked><img src='img/university2.png' width='24' height='24'>University</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="cultural" data-id="Cultural" data-layer="data3" ><img src='img/cult.png' width='24' height='24'>Cultural</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="fire" data-id="Fire" data-layer="data3" ><img src='img/fire.png' width='24' height='24'>Fire Department</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="government" data-id="Government" data-layer="data3" ><img src='img/gov-50.png' width='24' height='24'>Post Office</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="hospital" data-id="Hospital" data-layer="data3"><img src='img/hospital2.png' width='24' height='24'>Hospital - EMS</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="library" data-id="Library" data-layer="data3" ><img src='img/library.png' width='24' height='24'>Library</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="park" data-id="Park" data-layer="data3" ><img src='img/park3.png' width='24' height='24'>Park</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="police" data-id="Police" data-layer="data3" ><img src='img/police.png' width='24' height='24'>Police Department</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="shopping" data-id="Shopping Center" data-layer="data3" ><img src='img/mall.png' width='24' height='24'>Shopping Center</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="school" data-id="School" data-layer="data3" ><img src='img/school.png' width='24' height='24'>Schools (K-12)</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="university" data-id="College" data-layer="data3" ><img src='img/university2.png' width='24' height='24'>University</label></div>
 <!--
                         <div id="poi" style="clear: both;">    
                             <b>Points of Interest</b>
@@ -438,7 +438,7 @@
 			</div><!-- .panel panel-primary -->
                           
             
-            <div class="panel-group"  id="accordian" style="margin:10px 0px 10px 0px;">
+            <div class="panel-group"  id="accordian" style="margin:10px 0px 0px 0px;">
                 <div class="panel body"style="border-color:black;">
                     <div class="panel-heading"style=" background-color: rgb(0,120,174); ">
                         <a data-toggle="collapse" data-parent="#accordion_" href="#infosidebar">
@@ -679,11 +679,9 @@
         if (item.prop('checked')){
             dataLayer.forEach(function(d){
                 if(d.getProperty('TYPE') === layer_id ) {
-                    console.log(d)
                     dataLayer.overrideStyle(d, {visible:true});                
                 }
             });
-            
         }else{
             dataLayer.forEach(function(d){
                 if (d.getProperty('TYPE') === layer_id){
