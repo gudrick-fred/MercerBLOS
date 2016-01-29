@@ -21,6 +21,29 @@
     <!-- Custom styles for this template -->
     <style>
         
+        @font-face {
+            font-family: Oswald;
+            src: url(fonts/Oswald-Regular.ttf);
+            font-weight: normal;            
+        }
+        
+        @font-face {
+            font-family: Oswald;
+            src: url(fonts/Oswald-Bold.ttf);
+            font-weight: bold;
+        }
+        
+        @font-face {
+            font-family: Oswald;
+            src: url(fonts/Oswald-RegularItalic.ttf);
+            font-style: italic;
+            font-weight: normal;
+        }
+        
+        * {
+            font-family: 'Oswald';
+        }
+        
         html, body, #map, #sidebar, #container {
             height: 100%;
             margin: 0px;
@@ -32,6 +55,10 @@
         
         label {
             font-weight: normal;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Oswald';
         }
         
         .panel-heading a:hover {
@@ -233,7 +260,6 @@
             text-align: left;
         }
         
-        
     </style>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -262,7 +288,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#aboutModal').modal('show'); return false;" style="background-color:rgb(0,120,174)"><i class="glyphicon glyphicon-info-sign" style="color: white"></i>&nbsp;&nbsp;About</a>
+                    <a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#aboutModal').modal('show'); return false;" style="background-color:rgb(0,120,174);"><i class="glyphicon glyphicon-info-sign" style="color: white"></i>&nbsp;&nbsp;About</a>
                 </li>
                 
                 <li>
@@ -300,7 +326,7 @@
     </div>
       
     <div class="row" id="container">
-        <div class="col-sm-8 col-lg-9" id="map">
+        <div class="col-sm-8 col-md-9 col-lg-9" id="map">
     	    <div id='title'></div>	
             <div id="loading" style="display: block;">
                 <div class="loading-indicator">
@@ -310,7 +336,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4 col-lg-3" id="sidebar" style="padding: 10px; overflow: auto;">
+        <div class="col-sm-4 col-md-3 col-lg-3" id="sidebar" style="padding: 10px; overflow: auto;">
     		<div class="panel panel-primary">
     			<div class="panel-heading" >
     			   <span class="small text-muted" style="color:white"><strong>Layers</strong></span>
@@ -364,7 +390,7 @@
                             </div> 
                         </div>
                         
-                        <div id="minorRoads" style="float: right; width: 50%;">
+                        <div id="minorRoads" style="clear:left;">
                             <b>Minor Roads</b><br>
 
                             <div class="checkbox">
@@ -382,6 +408,20 @@
                             </div>
                         </div>
                         
+                        <div id="poi">
+                            <b>Points of Interest</b>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="business" data-id="Business/Office Park" data-layer="data3" checked><img src='img/office.png' width='24' height='24'>Business Center</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="cultural" data-id="Cultural" data-layer="data3" ><img src='img/cult.png' width='24' height='24'>Cultural</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="fire" data-id="Fire" data-layer="data3" ><img src='img/fire.png' width='24' height='24'>Fire Department</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="government" data-id="Government" data-layer="data3" ><img src='img/gov-50.png' width='24' height='24'>Post Office</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="hospital" data-id="Hospital" data-layer="data3"><img src='img/hospital2.png' width='24' height='24'>Hospital - EMS</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="library" data-id="Library" data-layer="data3" ><img src='img/library.png' width='24' height='24'>Library</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="park" data-id="Park" data-layer="data3" ><img src='img/park3.png' width='24' height='24'>Park</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="police" data-id="Police" data-layer="data3" ><img src='img/police.png' width='24' height='24'>Police Department</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="shopping" data-id="Shopping Center" data-layer="data3" ><img src='img/mall.png' width='24' height='24'>Shopping Center</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="school" data-id="School" data-layer="data3" ><img src='img/school.png' width='24' height='24'>Schools (K-12)</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="university" data-id="College" data-layer="data3" ><img src='img/university2.png' width='24' height='24'>University</label></div>
+<!--
                         <div id="poi" style="clear: both;">    
                             <b>Points of Interest</b>
                             <div class="checkbox">
@@ -389,14 +429,16 @@
                                     <input id="legend1" type="checkbox"  onClick="toggleLayer(data3,'legend1')" >
                                     <img src='img/legend2.png' class='img-responsive' width='426' height='101'> 
                                 </label>
+                                </label>
                             </div>
                         </div>
+-->
 					</div><!-- .panel-body -->
 	            </div><!-- #overlay-layers .panel-collapse collapse in -->
 			</div><!-- .panel panel-primary -->
                           
             
-            <div class="panel-group"  id="accordian" style="margin:10px 0px 10px 0px;">
+            <div class="panel-group"  id="accordian" style="margin:10px 0px 0px 0px;">
                 <div class="panel body"style="border-color:black;">
                     <div class="panel-heading"style=" background-color: rgb(0,120,174); ">
                         <a data-toggle="collapse" data-parent="#accordion_" href="#infosidebar">
@@ -628,7 +670,26 @@
     //var thejson;
 	var region = new google.maps.LatLng(40.2674, -74.7358);
 	
-    //ZoomTo Variables: Trail Network;
+    
+    
+    $('.layer').on('change', function(e){
+        var item = $(this),
+            layer_id = item.attr('data-id'),
+            dataLayer = window[$(this).attr('data-layer')];
+        if (item.prop('checked')){
+            dataLayer.forEach(function(d){
+                if(d.getProperty('TYPE') === layer_id ) {
+                    dataLayer.overrideStyle(d, {visible:true});                
+                }
+            });
+        }else{
+            dataLayer.forEach(function(d){
+                if (d.getProperty('TYPE') === layer_id){
+                    dataLayer.overrideStyle(d, {visible:false});
+                } 
+            });                    
+        }
+    });
     
         
     function toggleLayer(dataLayer,id){
@@ -638,21 +699,7 @@
         else {
             dataLayer.setMap(null);
         }
-    }
-        
-//    //Individual toggle options for POI's
-//    function togglePoint(dataLayer,id){
-//        if ($('#'+id).is(':checked')){
-//            var point = dataLayer.getProperty('TYPE');
-//            if (point == 'School') {
-//                dataLayer.setMap(map);
-//            }
-//            else {
-//                dataLayer.setMap(null);
-//            }
-//        } 
-//    }
-//    
+    };  
     
         
 	function initialize() {
@@ -717,6 +764,7 @@
             name: "Map",
     	    alt:"Show base map"
         }; 
+        
               
         var jayzMapType = new google.maps.StyledMapType($style, styledMapOptions);
         map.mapTypes.set(MY_MAPTYPE_ID,jayzMapType);
@@ -815,9 +863,6 @@
         var imgGov = new google.maps.MarkerImage('img/gov-50.png',
                      new google.maps.Size(50,50));
         
-        var imgHospital = new google.maps.MarkerImage('img/hospital2.png',
-                          new google.maps.Size(24,24));
-        
         var imgHospital2 = new google.maps.MarkerImage('img/hospital2.png',
                           new google.maps.Size(24,24));
         
@@ -842,7 +887,7 @@
         
         data3 = new google.maps.Data();
         data3.loadGeoJson('data/Places.js');
-    //  data3.setMap(map);
+        data3.setMap(map);
         data3.setStyle(function (feature) {
             var prop = feature.getProperty('TYPE');
             var subtype = feature.getProperty('SUB_TYPE')
@@ -873,36 +918,21 @@
                     clickable: true,
                     icon: imgPark
                 } 
-            } else if (prop == ('Medical') && subtype == ('Hospital')) {
-                return {
-                    clickable: true,
-                    icon: imgHospital
-                }
-            } else if (prop == ('Emergency') && subtype == ('Police')) {
-                return {
-                    clickable: true,
-                    icon: imgPolice
-                } 
-            } else if (prop == ('Emergency') && subtype == ('Hospital')) {
+            } else if (prop == ('Hospital')) {
                 return {
                     clickable: true,
                     icon: imgHospital2
                 }
-            } else if (prop == ('Emergency') && subtype == ('EMS')){
+            } else if (prop == ('Police')) {
                 return {
                     clickable: true,
-                    icon: imgEMS
-                }
-            } else if (prop == ('Emergency') && subtype == ('Fire')) {
+                    icon: imgPolice
+                } 
+            } else if (prop == ('Fire')) {
                 return {
                     clickable:true,
                     icon: imgFire
                 }            
-            } else if (prop == ('Emergency') && subtype == ('Fire EMS')) {
-                return {
-                    clickable: true,
-                    icon: imgFire
-                }
             } else if (prop == ('Library')) {
                 return {
                     clickable: true,
