@@ -690,6 +690,10 @@
             });                    
         }
     });
+        
+        
+    
+    
     
         
     function toggleLayer(dataLayer,id){
@@ -832,7 +836,13 @@
                 pixelOffset: new google.maps.Size(0,-30)
             });
             infowindow.open(map);
+        });
+        
+        data2.addListener('mouseout', function(e){
+            infowindow.close(map);
         })
+        
+        
         
         
 //        data2.addListener('click', function(e){
