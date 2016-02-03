@@ -410,7 +410,7 @@
                         
                         <div id="poi">
                             <b>Points of Interest</b>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="business" data-id="Business/Office Park" data-layer="data3" checked><img src='img/office.png' width='24' height='24'>Business Center</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="business" data-id="Business/Office Park" data-layer="data3"><img src='img/office.png' width='24' height='24'>Business Center</label></div>
                             <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="cultural" data-id="Cultural" data-layer="data3" ><img src='img/cult.png' width='24' height='24'>Cultural</label></div>
                             <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="fire" data-id="Fire" data-layer="data3" ><img src='img/fire.png' width='24' height='24'>Fire Department</label></div>
                             <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="government" data-id="Government" data-layer="data3" ><img src='img/gov-50.png' width='24' height='24'>Post Office</label></div>
@@ -894,75 +894,43 @@
         var imgShop = new google.maps.MarkerImage('img/mall.png',
                       new google.maps.Size(24,24));
         
+        function setIcon(feature){
+            var prop = feature.getProperty('TYPE');
+            var subtype = feature.getProperty('SUB_TYPE')
+            if (prop == ('School')) {
+                return imgSchool
+            } else if (prop == ('College')) {
+                return imgCollege
+            } else if (prop == ('Business/Office Park')) {
+                return imgBusiness
+            } else if (prop == ('Park') || prop == ('Recreational')) {
+                return imgPark
+            } else if (prop == ('Hospital')) {
+                return imgHospital2
+            } else if (prop == ('Police')) {
+                return imgPolice
+            } else if (prop == ('Fire')) {
+                return imgFire       
+            } else if (prop == ('Library')) {
+                return imgLibrary 
+            } else if (prop == ('Shopping Center')) {
+                return imgShop
+            } else if (prop == ('Government')) {
+                return imgGov
+            } else if (prop == ('Cultural')) {
+                return imgCult
+            }
+        };
+        
         
         data3 = new google.maps.Data();
         data3.loadGeoJson('data/Places.js');
         data3.setMap(map);
-        data3.setStyle(function (feature) {
-            var prop = feature.getProperty('TYPE');
-            var subtype = feature.getProperty('SUB_TYPE')
-            if (prop == ('School')) {
-                return {
-                    clickable: true,
-                    icon: imgSchool
-                } 
-            } else if (prop == ('College')) {
-                return {
-                    clickable: true,
-                    icon: imgCollege
-                }
-            } else if (prop == ('Business/Office Park')) {
-                return {
-                    clickable: true,
-                    icon: imgBusiness
-//                        path: google.maps.SymbolPath.CIRCLE,
-//                        scale:4,
-//                        fillColor: '#0000e5',
-//                        fillOpacity: 0.75,
-//                        strokeColor: 'white',
-//                        strokeWeight:1
-//                    }
-                } 
-            } else if (prop == ('Park') || prop == ('Recreational')) {
-                return {
-                    clickable: true,
-                    icon: imgPark
-                } 
-            } else if (prop == ('Hospital')) {
-                return {
-                    clickable: true,
-                    icon: imgHospital2
-                }
-            } else if (prop == ('Police')) {
-                return {
-                    clickable: true,
-                    icon: imgPolice
-                } 
-            } else if (prop == ('Fire')) {
-                return {
-                    clickable:true,
-                    icon: imgFire
-                }            
-            } else if (prop == ('Library')) {
-                return {
-                    clickable: true,
-                    icon: imgLibrary 
-                }
-            } else if (prop == ('Shopping Center')) {
-                return {
-                    clickable: true,
-                    icon: imgShop
-                } 
-            } else if (prop == ('Government')) {
-                return {
-                    clickable: true,
-                    icon: imgGov
-                } 
-            } else if (prop == ('Cultural')) {
-                return {
-                    clickable: true,
-                    icon: imgCult
-                } 
+        data3.setStyle(function(feature){
+            return {
+                clickable: true,
+                visible: false,
+                icon: setIcon(feature)
             }
         });
 
