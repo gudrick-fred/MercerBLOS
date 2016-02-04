@@ -49,6 +49,10 @@
             margin: 0px;
         }
         
+        #container {
+            position: relative;
+        }
+        
         body {
             padding-top: 50px;
         }
@@ -165,6 +169,7 @@
 
 		.modal-header {
 			background-color:rgb(0,120,174);
+            height: 50px;
 		}
 
 		.modal-title  {
@@ -172,7 +177,6 @@
 		}
         
 
-/*
 		.close {
 		    float: right;
 		    font-size: 21px;
@@ -182,7 +186,6 @@
 		    text-shadow: 0px 1px 0px rgb(255, 255, 255);
 		    opacity: 1;
 		}
-*/
 		
 		.panel-primary > .panel-heading {
 		    color: #FFF;
@@ -254,10 +257,24 @@
             list-style-type: none;
         }
         
-        .station-window {
-            width: 150px;
-            height: 40px;
+        .station-window .poi-window {
+            display: inline-block;
             text-align: left;
+        }
+        
+        #info-bar{
+            position: absolute;
+            display: inline-block;
+            border-style: solid;
+            border-color: #0078ae;
+            background-color: white;
+            box-shadow: 7px 7px 3px #888888;
+            top: 15px;
+            right: 27%;
+            z-index: 1;
+            padding: 10px;
+            max-width: 400px;
+            font-size: 1.10em;
         }
         
     </style>
@@ -326,6 +343,9 @@
     </div>
       
     <div class="row" id="container">
+        <div id="info-bar">
+            <b>Information</b><em> (click road)</em>
+        </div>
         <div class="col-sm-8 col-md-9 col-lg-9" id="map">
     	    <div id='title'></div>	
             <div id="loading" style="display: block;">
@@ -336,6 +356,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="col-sm-4 col-md-3 col-lg-3" id="sidebar" style="padding: 10px; overflow: auto;">
     		<div class="panel panel-primary">
     			<div class="panel-heading" >
@@ -395,14 +416,14 @@
 
                             <div class="checkbox">
                                 <label>
-                                    <input id="Fav" type="checkbox"  onClick="toggleLayer(data8,'Fav')" >
+                                    <input id="Fav" type="checkbox" onClick="toggleLayer(data8,'Fav')" >
                                     <img src='img/localA.png' width='40' height='8'> &nbsp;Favorable
                                 </label>
                             </div> 
-
+                
                             <div class="checkbox">
                                 <label>
-                                    <input id="UnFav" type="checkbox"  onClick="toggleLayer(data9,'UnFav')" >
+                                    <input id="Min_UnFav" type="checkbox" onClick="toggleLayer(data9,'Min_UnFav')" >
                                     <img src='img/localD.png' width='40' height='8'> &nbsp;Unfavorable
                                 </label>
                             </div>
@@ -410,34 +431,24 @@
                         
                         <div id="poi">
                             <b>Points of Interest</b>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="business" data-id="Business/Office Park" data-layer="data3"><img src='img/office.png' width='24' height='24'>Business Center</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="cultural" data-id="Cultural" data-layer="data3" ><img src='img/cult.png' width='24' height='24'>Cultural</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="fire" data-id="Fire" data-layer="data3" ><img src='img/fire.png' width='24' height='24'>Fire Department</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="government" data-id="Government" data-layer="data3" ><img src='img/gov-50.png' width='24' height='24'>Post Office</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="hospital" data-id="Hospital" data-layer="data3"><img src='img/hospital2.png' width='24' height='24'>Hospital - EMS</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="library" data-id="Library" data-layer="data3" ><img src='img/library.png' width='24' height='24'>Library</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="park" data-id="Park" data-layer="data3" ><img src='img/park3.png' width='24' height='24'>Park</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="police" data-id="Police" data-layer="data3" ><img src='img/police.png' width='24' height='24'>Police Department</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="shopping" data-id="Shopping Center" data-layer="data3" ><img src='img/mall.png' width='24' height='24'>Shopping Center</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="school" data-id="School" data-layer="data3" ><img src='img/school.png' width='24' height='24'>Schools (K-12)</label></div>
-                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="university" data-id="College" data-layer="data3" ><img src='img/university2.png' width='24' height='24'>University</label></div>
-<!--
-                        <div id="poi" style="clear: both;">    
-                            <b>Points of Interest</b>
-                            <div class="checkbox">
-                                <label>
-                                    <input id="legend1" type="checkbox"  onClick="toggleLayer(data3,'legend1')" >
-                                    <img src='img/legend2.png' class='img-responsive' width='426' height='101'> 
-                                </label>
-                                </label>
-                            </div>
-                        </div>
--->
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="business" data-id="Business/Office Park" data-layer="data3"><img src='img/office.png' width='24' height='24'>&nbsp;&nbsp;Business Center</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="cultural" data-id="Cultural" data-layer="data3" ><img src='img/cult.png' width='24' height='24'>&nbsp;&nbsp;Cultural</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="fire" data-id="Fire" data-layer="data3" ><img src='img/fire.png' width='24' height='24'>&nbsp;&nbsp;Fire Department</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="government" data-id="Government" data-layer="data3" ><img src='img/gov-50.png' width='24' height='24'>&nbsp;&nbsp;Post Office</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="hospital" data-id="Hospital" data-layer="data3"><img src='img/hospital2.png' width='24' height='24'>&nbsp;&nbsp;Hospital - EMS</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="library" data-id="Library" data-layer="data3" ><img src='img/library.png' width='24' height='24'>&nbsp;&nbsp;Library</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="park" data-id="Park" data-layer="data3" ><img src='img/park3.png' width='24' height='24'>&nbsp;&nbsp;Park</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="police" data-id="Police" data-layer="data3" ><img src='img/police.png' width='24' height='24'>&nbsp;&nbsp;Police Department</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="shopping" data-id="Shopping Center" data-layer="data3" ><img src='img/mall.png' width='24' height='24'>&nbsp;&nbsp;Shopping Center</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="school" data-id="School" data-layer="data3" ><img src='img/school.png' width='24' height='24'>&nbsp;&nbsp;Schools (K-12)</label></div>
+                            <div class="checkbox"><label><input type="checkbox" class="layer" name="overLayers" id="university" data-id="College" data-layer="data3" ><img src='img/university2.png' width='24' height='24'>&nbsp;&nbsp;University</label></div>
+                            
 					</div><!-- .panel-body -->
 	            </div><!-- #overlay-layers .panel-collapse collapse in -->
 			</div><!-- .panel panel-primary -->
                           
             
+<!--
             <div class="panel-group"  id="accordian" style="margin:10px 0px 0px 0px;">
                 <div class="panel body"style="border-color:black;">
                     <div class="panel-heading"style=" background-color: rgb(0,120,174); ">
@@ -448,28 +459,16 @@
                     <div id="infosidebar" style="margin-left:10px"></div>
                 </div>
             </div>
-            
-<!--
-            <div class="panel panel-primary">
-			    <div class="panel-heading" >
-				    <span class="small text-muted" style="color:white"><strong>Roadway Info</strong></span>
-                </div>
-                
-                <div class="panel-body" style="padding:3px">
-					<div id='infosidebar' style="margin-left:10px;"></div>									
-			    </div>    
-            </div> /.panel panel-primary *TOGGLE ROAD INFO*
 -->
-
-            
-
         </div><!-- #Sidebar (Entire Sidebar) -->
     </div><!-- #Container --> 
     
     <div class="modal fade" id="legendModal">
         <div class="modal-dialog" style="width:620px">
             <div class="modal-content">
-                <div class="modal-header"></div>
+                <div class="modal-header">
+                    <button class="close" aria-hidden="true" data-dismiss="modal" type="button" style="color:white;">×</button>
+                </div>
                 <div class="modal-body">
                             <div class="media">
 								<a class="pull-left" href="#">
@@ -578,7 +577,9 @@
                 </div>
                 <div class="modal-body">
                     <p>
-                        This dataset is an effort to approximate how comfortable every street in Mercer County, New Jersey, is to bike on, for the average bicyclist. It was created by first calculating Bicycle Level of Service (BLOS) ratings for every road segment in the county using GIS data, and then my “crowdsourcing” corrections to these ratings via a webmap interface. The final ratings are simplified into three “bikeability” categories: Excellent (LOS A+B), Fair (LOS C+D), and Unfavorable (LOS E+F).
+                        This dataset is an effort to approximate how comfortable every street in Mercer County, New Jersey, is to bike on, for the average bicyclist. It was created by first calculating Bicycle Level of Service (BLOS) ratings for 
+                        every road segment in the county using GIS data, and then my “crowdsourcing” corrections to these ratings via a webmap interface. The final ratings are simplified into three “bikeability” categories: Excellent (BLOS A+B), Fair 
+                        (BLOS C+D), and Unfavorable (BLOS E+F).
                     </p>
                     <hr 75%=""></hr>
                     <li class="download-left">
@@ -599,7 +600,9 @@
     <div class="modal fade" id="aboutModal">
         <div class="modal-dialog"style="width:620px">
             <div class="modal-content">
-                <div class="modal-header"></div>
+                <div class="modal-header">
+                    <button class="close" aria-hidden="true" data-dismiss="modal" type="button" style="color:white;">×</button>
+                </div>
                 <div class="modal-body">
                     <ul id="aboutTabs" class="nav nav-tabs">
                         <li class="active"><a href="#about" data-toggle="tab"><i class="icon-road"></i>&nbsp;About</a></li>
@@ -612,21 +615,29 @@
                         <div class="tab-pane fade active in" id="about">
 							<h3>What is Bikeability?</h3>
                             <p>
-                                Bikeability is an estimate of how comfortable it is to bike along a roadway, and considers many factors, including traffic volumes, traffic speeds, pavement widths, and whether there is a usable shoulder. In cooperation with Mercer County, DVRPC staff calculated Bikeability Scores for Mercer County roadways using the Bicycle Level of Service (BLOS) model, which generates a BLOS grade for any roadway based on the above factors (and others). For details on the BLOS model and our method of analysis for the scores you see on the Mercer County Bikeability Map, please click <a href="pdf/process.pdf">here</a> to download an excerpt of a project memo that describes this process. After the initial scores were calculated, comments were submitted by site visitors to help improve the accuracy of the Bikeability Scores. Many of the scores you see on the site now have been adjusted based on these comments.
+                                Bikeability is an estimate of how comfortable it is to bike along a roadway, and considers many factors, including traffic volumes, traffic speeds, pavement widths, and whether there is a usable shoulder. In         
+                                cooperation with Mercer County, DVRPC staff calculated Bikeability Scores for Mercer County roadways using the Bicycle Level of Service (BLOS) model, which generates a BLOS grade for any roadway based on the above 
+                                factors (and others). For details on the BLOS model and our method of analysis for the scores you see on the Mercer County Bikeability Map, please click <a href="pdf/process.pdf">here</a> to download an excerpt of a 
+                                project memo that describes this process. After the initial scores were calculated, comments were submitted by site visitors to help improve the accuracy of the Bikeability Scores. Many of the scores you see on the 
+                                site now have been adjusted based on these comments.
                             </p>
-
                         </div>
                         
                         <div class="tab-pane fade" id="purpose">
 							<h3>Purpose of this site:</h3>
                             <p>
-                                This site is intended to be a resource for Mercer County residents and bicyclists to help them plan bicycle-friendly routes to ride, and also to help planners identify priority bicycle corridors and facilities to be considered in the future. We hope comments will help us improve the bikeability scores shown on the site, develop an effective route planning tool for cyclists, and provide information for agencies with jurisdiction over particular roads that will help them improve conditions for cyclists. Please note that particular roadways are owned and maintained by the State of New Jersey, the County of Mercer, and various municipalities. Planning, designing, funding, and constructing roadway improvements is a long and expensive process. We hope that the information gathered here will influence policy and project priorities for all relevant agencies; it is particularly relevant to the development of the Mercer County long-range transportation master plan. During this site's comment period, many site visitors suggested priority bike routes or corridors; these have been shared with planners preparing the new bicyle master plan for Mercer County.
+                                This site is intended to be a resource for Mercer County residents and bicyclists to help them plan bicycle-friendly routes to ride, and also to help planners identify priority bicycle corridors and facilities to be 
+                                considered in the future. We hope comments will help us improve the bikeability scores shown on the site, develop an effective route planning tool for cyclists, and provide information for agencies with jurisdiction 
+                                over particular roads that will help them improve conditions for cyclists. Please note that particular roadways are owned and maintained by the State of New Jersey, the County of Mercer, and various municipalities. 
+                                Planning, designing, funding, and constructing roadway improvements is a long and expensive process. We hope that the information gathered here will influence policy and project priorities for all relevant agencies; it  
+                                is particularly relevant to the development of the Mercer County long-range transportation master plan. During this site's comment period, many site visitors suggested priority bike routes or corridors; these have been 
+                                shared with planners preparing the new bicyle master plan for Mercer County.
                             </p>			
 						</div>
                     		 
 						<div class="tab-pane fade" id="use">
 							<p>
-							   At the top left of the map are zoom and pan/drag controls for moving around. The toolbar on the right has visible data layers highlighted in blue. Click to turn them on or off. Layers include bikeability scores for major and minor roads, off-road bikeable trails, places/attractors, as well as select comments submitted by site visitors during the open comment period. Details on comment types appear if you mouse over or 'hover' over the item for a moment. Clicking on a "place" (within the map) will display that place's name and type. Clicking on "zoom to" will bring up a menu of municipalities or rail stations you can focus in on. 
+				                On the bottom right of the map are zoom and pan/drag controls for moving around. The toolbar on the right displays visible data layers -- by clicking the symbol or label, will turn them on or off. Layers include bikeability scores for major and minor roads, off-road bikeable trails, places/attractors.  Clicking on a "place" (within the map) will display that place's name, address, and type. At the top right, we've provided a drop-down menu for each municipality within Mercer County (<i class="glyphicon glyphicon-globe" style="color:black"></i>&nbsp;&nbsp;Townships). Selecting a municipality will "zoom to" that specified area. 
 							</p>			
 						</div>
 					
@@ -646,8 +657,20 @@
                         
                         <div class="tab-pane fade" id="disclaimer">
                             <p>
-                                The bikeability grades and other bicycle-related information on this map are in no way an endorsement or recommendation of a particular roadway for bicycling nor are they an indication that a roadway is intended for use by bicyclists. Rather, the ratings are a quantified trip planning tool for the individual adult bicyclist in the selection of roads meeting his or her experience, skill, and comfort levels. Potential hazards and obstructions may exist on the routes shown, and Mercer County and other relevant maintaining agencies in no way warrant the safety or fitness of the suggested routes. This map does not expand the liability of Mercer County and the other maintaining agencies beyond existing law. The user of this map bears full responsibility for his or her safety. 
-                             </p>	
+                                The bikeability grades and other bicycle-related information on this map are in no way an endorsement or recommendation of a particular roadway for bicycling nor are they an indication that a roadway is intended for 
+                                use by bicyclists. Rather, the ratings are a quantified trip planning tool for the individual adult bicyclist in the selection of roads meeting his or her experience, skill, and comfort levels. Potential hazards and 
+                                obstructions may exist on the routes shown, and Mercer County and other relevant maintaining agencies in no way warrant the safety or fitness of the suggested routes. This map does not expand the liability of Mercer 
+                                County and the other maintaining agencies beyond existing law. The user of this map bears full responsibility for his or her safety.
+                            <br>
+                            <br>
+                                The Delaware Valley Regional Planning Commission (DVRPC) fully complies with Title VI of the Civil Rights Act of 1964, the Civil Rights Restoration Act of 1987, Executive Order 12898 on Environmental Justice, and 
+                                related nondiscrimination statutes and regulations in all programs and activities. DVRPC’s website, www.dvrpc.org, may be translated into multiple languages. Publications and other public documents can be made 
+                                available in alternative languages and formats, if requested. DVRPC public meetings are always held in ADA-accessible facilities and in transit-accessible locations when possible. Auxiliary services can be provided to 
+                                individuals who submit a request at least seven days prior to a meeting. Requests made within seven days will be accommodated to the greatest extent possible. Any person who believes they have been aggrieved by an 
+                                unlawful discriminatory practice by DVRPC under Title VI has a right to file a formal complaint. Any such complaint may be in writing and filed with DVRPC’s Title VI Compliance Manager and/or the appropriate state or 
+                                federal agency within 180 days of the alleged discriminatory occurrence. For more information on DVRPC’s Title VI program, or to obtain a Title VI Complaint Form, please call (215) 238-2871 or email 
+                                <a href="mailto:public_affairs@dvrpc.org" target="_top">public_affairs@dvrpc.org</a>. 
+                            </p>	
                         </div>
                         
 					</div><!-- /#aboutTabsContent .tab-content -->
@@ -664,7 +687,10 @@
     <script>
 	
     var map;
-	var MY_MAPTYPE_ID = 'Base Map';
+	var CUSTOM_BASEMAP = {
+        name: 'Custom Map',
+        alt: 'Custom Basemap'
+    }
 	var geoJsonObject;
   
     //var thejson;
@@ -692,10 +718,7 @@
     });
         
         
-    
-    
-    
-        
+
     function toggleLayer(dataLayer,id){
         if ($('#'+id).is(':checked')){
             dataLayer.setMap(map);
@@ -753,25 +776,19 @@
                 lat: 40.279,  
                 lng:-74.714
             },
-            mapTypeId: MY_MAPTYPE_ID,  
+            mapTypeId: 'Custom Basemap',  
     	    mapTypeControlOptions: {
-    	        mapTypeIds: [google.maps.MapTypeId.SATELLITE,google.maps.MapTypeId.ROADMAP,google.maps.MapTypeId.HYBRID],
+    	        mapTypeIds: ['Custom Basemap', google.maps.MapTypeId.SATELLITE,google.maps.MapTypeId.ROADMAP,google.maps.MapTypeId.HYBRID],
     	        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
             },
             // draggableCursor: 'pointer', // every pixel is clickable.
             streetViewControl: true //my favorite feature in V3!
         });
       
-        map.enableKeyDragZoom();  
-     
-        var styledMapOptions = {
-            name: "Map",
-    	    alt:"Show base map"
-        }; 
-        
+        map.enableKeyDragZoom();          
               
-        var jayzMapType = new google.maps.StyledMapType($style, styledMapOptions);
-        map.mapTypes.set(MY_MAPTYPE_ID,jayzMapType);
+
+        map.mapTypes.set('Custom Basemap', new google.maps.StyledMapType($style, CUSTOM_BASEMAP));
  
 	    var bikeLayer = new google.maps.BicyclingLayer();
         bikeLayer.setMap(map);
@@ -801,14 +818,14 @@
         });	
 		
         data1.addListener('click', function(e) {
-            var content = '<b>Trail Name: </b>'+e.feature.getProperty('TRAIL_NAME')
+            var content = '<b style="color: #461326">Trail Name: </b>'+e.feature.getProperty('TRAIL_NAME')
                          +'<br><b>Agency: </b>'+ e.feature.getProperty('AGENCY')  
                          +'<br><b>Status: </b>'+ e.feature.getProperty('STATUS')
                          +'<br><b>Road: </b>'+e.feature.getProperty('ROAD')
                 		 +'<br><b>Type:  </b>'+e.feature.getProperty('TYPE')
                 		 +'<br><b>Material: </b> '+e.feature.getProperty('MATERIAL');
 	       
-            $('#infosidebar').html(content);
+            $('#info-bar').html(content);
         });
 
    
@@ -937,12 +954,22 @@
     
 //      Place Information -- change to popup?
         
-        data3.addListener('click', function(e) {
-            var content = '<b>Name: </b>'+e.feature.getProperty('NAME')
-                         +'<br><b>Address: </b>'+ e.feature.getProperty('ADDRESS')  
-                         +'<br><b>Type: </b>'+ e.feature.getProperty('TYPE');
-    	    $('#infosidebar').html(content);
-        });		
+        data3.addListener('click', function(e){
+            infowindow.setContent("<div class='poi-window'><b>Name: </b>" + e.feature.getProperty('NAME') 
+                                  + "<br><b>Address: </b>" + e.feature.getProperty('ADDRESS') 
+                                  + "<br><b>Type: </b>" + e.feature.getProperty('TYPE') 
+                                  + "</div>");
+            infowindow.setPosition(e.feature.getGeometry().get());
+            infowindow.setOptions({
+                pixelOffset: new google.maps.Size(0,-30)
+            });
+            infowindow.open(map);
+        });
+        
+        data3.addListener('mouseout', function(e){
+            infowindow.close(map);
+        })
+        
 		
 	    data4 = new google.maps.Data();
 	    data4.loadGeoJson('data/Excellent.js');
@@ -975,7 +1002,7 @@
                 		 +'<br><b>Score: </b>'+e.feature.getProperty('SCORE')
                 		 +'<br><b>BLOS: </b>'+e.feature.getProperty('BLOS');
 
-	        $('#infosidebar').html(content);
+	        $('#info-bar').html(content);
         });		
 	
         data5 = new google.maps.Data();
@@ -1009,7 +1036,7 @@
             		 +'<br><b>Score: </b>'+e.feature.getProperty('SCORE')
             		 +'<br><b>BLOS: </b>'+e.feature.getProperty('BLOS');
 
-            $('#infosidebar').html(content);
+            $('#info-bar').html(content);
         });
 
 	    data6 = new google.maps.Data();
@@ -1043,7 +1070,7 @@
                 		 +'<br><b>Score: </b>'+e.feature.getProperty('SCORE')
                 		 +'<br><b>BLOS: </b>'+e.feature.getProperty('BLOS');
 	   
-            $('#infosidebar').html(content);
+            $('#info-bar').html(content);
         });	
 	
         data7 = new google.maps.Data();
@@ -1077,7 +1104,7 @@
                 		 +'<br><b>Score: </b>'+e.feature.getProperty('SCORE')
                 		 +'<br><b>BLOS: </b>'+e.feature.getProperty('BLOS');
 
-	        $('#infosidebar').html(content);
+	        $('#info-bar').html(content);
         });	
 	
         data8 = new google.maps.Data();
@@ -1111,12 +1138,12 @@
                 		 +'<br><b>Score: </b>'+e.feature.getProperty('SCORE')
                 		 +'<br><b>BLOS: </b>'+e.feature.getProperty('BLOS');
 	   
-            $('#infosidebar').html(content);
+            $('#info-bar').html(content);
         });	
 	
         data9 = new google.maps.Data();
-    	data9.loadGeoJson('data/Minor_Unfavorable.js');
-    	//data9.setMap(map);
+    	data9.loadGeoJson('Data/Minor_Unfavorable.js');
+//    	data9.setMap(map);
     	data9.setStyle(function (feature) {
 		    return {
                 strokeColor: '#F37D80',
@@ -1145,7 +1172,7 @@
                 		 +'<br><b>Score: </b>'+e.feature.getProperty('SCORE')
                 		 +'<br><b>BLOS: </b>'+e.feature.getProperty('BLOS');
 
-	        $('#infosidebar').html(content);
+	        $('#info-bar').html(content);
         });	
 
 		$.getJSON('data/MunicipalBoundary.js', function(d) {
