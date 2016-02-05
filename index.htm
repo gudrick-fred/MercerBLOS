@@ -269,8 +269,8 @@
             border-color: #0078ae;
             background-color: white;
             box-shadow: 7px 7px 3px #888888;
-            top: 15px;
-            right: 27%;
+            bottom: 30px;
+            left: 30px;
             z-index: 1;
             padding: 10px;
             max-width: 400px;
@@ -346,7 +346,7 @@
         <div id="info-bar">
             <b>Information</b><em> (click road)</em>
         </div>
-        <div class="col-sm-8 col-md-9 col-lg-9" id="map">
+        <div class="col-sm-8 col-md-9 col-lg-10" id="map">
     	    <div id='title'></div>	
             <div id="loading" style="display: block;">
                 <div class="loading-indicator">
@@ -357,7 +357,7 @@
             </div>
         </div>
         
-        <div class="col-sm-4 col-md-3 col-lg-3" id="sidebar" style="padding: 10px; overflow: auto;">
+        <div class="col-sm-4 col-md-3 col-lg-2" id="sidebar" style="padding: 10px; overflow: auto;">
     		<div class="panel panel-primary">
     			<div class="panel-heading" >
     			   <span class="small text-muted" style="color:white"><strong>Layers</strong></span>
@@ -368,7 +368,7 @@
 	                    <div class="checkbox">
 	                        <label>
 	                            <input id="roadway" type="checkbox"  onClick="toggleLayer(data1,'roadway')" checked>
-	                            <img src='img/Trails.png'width='40' height='8' > &nbsp;Mercer County Trail Network
+	                            <img src='img/Trails.png'width='40' height='8' >&nbsp;Bikeable Mercer County Trails
 	                        </label>
 	                    </div> 
 						
@@ -464,7 +464,7 @@
     </div><!-- #Container --> 
     
     <div class="modal fade" id="legendModal">
-        <div class="modal-dialog" style="width:620px">
+        <div class="modal-dialog" style="width:800px">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" aria-hidden="true" data-dismiss="modal" type="button" style="color:white;">×</button>
@@ -492,22 +492,22 @@
 							
 							<div class="media">
 								<a class="pull-left" href="#">
-									<img class="media-object" src="img/railstation-50px.png"style="height:50px;width:50px; margin-top:12px; margin-right:13px">
+									<img class="media-object" src="img/railstation-50px.png"style="height:50px;width:50px; margin-top:5px; margin-right:13px">
 								</a>
 								<div class="media-body">
-									<h4>Rail Stations</h4>
+									<h4 style="margin-bottom:0px">Rail Stations</h4>
 									<p>Rail stations within Mercer county.</p>
 								</div>
 							</div>
 						 
-							<h4>Major Roads</h4>
+							<h4 style="margin-top:20px">Major Roads</h4>
 							 
 							<div class="media">
 								<a class="pull-left" href="#">
 									<img class="media-object" src="img/excellent.png"style="height:13px;width:63px; margin-top:12px">
 								</a>
 								<div class="media-body">
-									<h5>Excellent</h5>
+									<h5 style="margin-bottom: 0px"><b>Excellent</b></h5>
 									<p>These road segments are generally comfortable to bike along (BLOS grades A and B)</p>
 								</div>
 							</div>
@@ -517,7 +517,7 @@
 									<img class="media-object" src="img/fair.png"style="height:13px;width:63px; margin-top:12px">
 								</a>
 								<div class="media-body">
-									<h5>Fair</h5>  
+                                    <h5 style="margin-bottom: 0px"><b>Fair</b></h5>  
 									<p>These road segments may present some issues, depending on your experience level (BLOS grades C and D)</p>
 								</div>
 							</div>
@@ -527,7 +527,7 @@
 									<img class="media-object" src="img/unsafe.png"style="height:13px;width:63px; margin-top:12px">
 								</a>
 								<div class="media-body">
-									<h5>Unfavorable</h5>  
+									<h5 style="margin-bottom: 0px"><b>Unfavorable</b></h5>  
 									<p>These road segments are generally not comfortable to bike along (BLOS grades E and F)</p>
 								</div>
 							</div>
@@ -537,7 +537,7 @@
 									<img class="media-object" src="img/unbikeable.png"style="height:13px;width:63px; margin-top:12px">
 								</a>
 								<div class="media-body">
-									<h5>Unbikeable</h5>
+									<h5 style="margin-bottom: 0px"><b>Unbikeable</b></h5>
 									<p>Roadways on which bicycles cannot travel (limited access highways, highway access ramps and other selected “hazardous” routes)</p>
 								</div>
 							</div>
@@ -549,7 +549,7 @@
 									<img class="media-object" src="img/localA.png"style="height:13px;width:63px; margin-top:12px">
 								</a>
 								<div class="media-body">
-									<h5>Favorable</h5>
+									<h5 style="margin-bottom:0px"><b>Favorable</b></h5>
 									<p>These road segments are generally comfortable to bike along (BLOS grades A, B, or C)</p>
 								</div>
 							</div>
@@ -559,7 +559,7 @@
 									<img class="media-object" src="img/localD.png"style="height:13px;width:63px; margin-top:12px">
 								</a>
 								<div class="media-body">
-									<h5>Unfavorable</h5>
+									<h5 style="margin-bottom:0px"><b>Unfavorable</b></h5>
 									<p>These road segments are generally not comfortable to bike along (BLOS grades D, E, or F)</p>
                                 </div>
 				    </div>
