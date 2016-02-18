@@ -293,14 +293,14 @@
     	data4.setMap(map);
     	data4.setStyle(function (feature) {
 		    return {   
-                strokeColor: '#3AA566',
+                strokeColor: '#006d2c',
 			    strokeWeight: 3,
         		fill: true,
-        		clickable: true
+        		clickable: false
 	        }
 		});
 	
-        data4.addListener('click', function(e) {
+    /*    data4.addListener('click', function(e) {
             data1.revertStyle();
     	    data4.revertStyle();
             data5.revertStyle();
@@ -322,7 +322,7 @@
 
 	        $('#info-bar').html(content);
         });		
-	
+	*/
         data5 = new google.maps.Data();
     	data5.loadGeoJson('data/Fair.js');
     	data5.setMap(map);
@@ -435,8 +435,9 @@
     	//data8.setMap(map);
     	data8.setStyle(function (feature) {
 		    return {   
-                strokeColor: '#515151',
-    			strokeWeight: 2,
+               // strokeColor: '#a8ddb5',
+    		    strokeColor: '#74c476',	
+                strokeWeight: 2,
         		fill: true,
         		clickable: true
 	        }
