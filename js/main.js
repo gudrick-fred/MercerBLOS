@@ -301,6 +301,7 @@
 		});
 	
         data4.addListener('click', function(e) {
+            data1.revertStyle();
     	    data4.revertStyle();
             data5.revertStyle();
             data6.revertStyle();
@@ -335,6 +336,7 @@
 		});
 	
         data5.addListener('click', function(e) {
+            data1.revertStyle();
     	    data5.revertStyle();
             data4.revertStyle();
             data6.revertStyle();
@@ -369,6 +371,7 @@
 		});
 		
         data6.addListener('click', function(e) {
+            data1.revertStyle();
     	    data6.revertStyle();
             data5.revertStyle();
             data4.revertStyle();
@@ -404,6 +407,7 @@
 		});
 		
         data7.addListener('click', function(e) {
+            data1.revertStyle();
     	    data7.revertStyle();
             data5.revertStyle();
             data6.revertStyle();
@@ -439,6 +443,7 @@
 		});	
 		
         data8.addListener('click', function(e) {
+            data1.revertStyle();
     	    data8.revertStyle();
             data5.revertStyle();
             data6.revertStyle();
@@ -474,6 +479,7 @@
 		});
 	
         data9.addListener('click', function(e) {
+            data1.revertStyle();
     	    data9.revertStyle();
             data5.revertStyle();
             data6.revertStyle();
