@@ -223,8 +223,8 @@ hr {
     border-color: #0078ae;
     background-color: white;
     box-shadow: 7px 7px 3px #888888;
-    top: 10px;
-    right: 300px;
+    bottom: 30px;
+    left: 10px;
     z-index: 1;
     padding: 10px;
     max-width: 400px;
