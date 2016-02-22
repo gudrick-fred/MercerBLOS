@@ -272,7 +272,7 @@
         });		
 		
         data4.addListener('click', function(e) {
-            var content = '<b>Bikabilty Score: </b>'+e.feature.getProperty('BIKESCORE')
+            var content = '<b>Bikeability Score: </b>'+e.feature.getProperty('BIKESCORE')
                 		 +'<br><b>BLOS Grade (score): </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;';
 
 	        $('#info-bar').html(content);
@@ -305,7 +305,7 @@
         });		
 		
         data5.addListener('click', function(e) {
-        var content = '<b>Bikabilty Score: </b>'+e.feature.getProperty('BIKESCORE')
+        var content = '<b>Bikeability Score: </b>'+e.feature.getProperty('BIKESCORE')
                      +'<br><b>BLOS Grade (score): </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;';
 
             $('#info-bar').html(content);
@@ -338,7 +338,7 @@
         });	
 		
         data6.addListener('click', function(e) {
-           var content = '<b>Bikabilty Score: </b>'+e.feature.getProperty('BIKESCORE')
+           var content = '<b>Bikeability Score: </b>'+e.feature.getProperty('BIKESCORE')
                         +'<br><b>BLOS Grade (score): </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;';
 
             $('#info-bar').html(content);
@@ -372,7 +372,7 @@
         });	
 		
         data7.addListener('click', function(e) {
-            var content = '<b>Bikabilty Score: </b>'+e.feature.getProperty('BIKESCORE')
+            var content = '<b>Bikeability Score: </b>'+e.feature.getProperty('BIKESCORE')
                          +'<br><b>BLOS Grade (score): </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;';
 
 	        $('#info-bar').html(content);
@@ -407,7 +407,7 @@
         });	
 		
         data8.addListener('click', function(e) {
-            var content = '<b>Bikabilty Score: </b>'+e.feature.getProperty('BIKESCORE')
+            var content = '<b>Bikeability Score: </b>'+e.feature.getProperty('BIKESCORE')
                          +'<br><b>BLOS Grade (score): </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;'
                          +'<br><i>Minor Road</i>';
 
@@ -442,7 +442,7 @@
         });		
 		
         data9.addListener('click', function(e) {
-           var content = '<b>Bikabilty Score: </b>'+e.feature.getProperty('BIKESCORE')
+           var content = '<b>Bikeability Score: </b>'+e.feature.getProperty('BIKESCORE')
                          +'<br><b>BLOS Grade (score): </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;'
                          +'<br><i>Minor Road</i>';
 
