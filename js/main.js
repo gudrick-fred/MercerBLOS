@@ -8,8 +8,6 @@
     //var thejson;
 	var region = new google.maps.LatLng(40.2674, -74.7358);
 	
-    
-    
     $('.layer').on('change', function(e){
         var item = $(this),
             layer_id = item.attr('data-id'),
@@ -29,8 +27,6 @@
         }
     });
         
-        
-
     function toggleLayer(dataLayer,id){
         if ($('#'+id).is(':checked')){
             dataLayer.setMap(map);
@@ -47,23 +43,7 @@
         
 	function initialize() {
 
-        var $style = [
-//          {
-//            "featureType": "poi.park",
-//            "elementType": "geometry.fill",
-//            "stylers": [
-//              { "hue": "#4cff00" },
-//              { "saturation": -15 },
-//              { "lightness": -15 }
-//            ]
-//          },{
-//            "featureType": "poi.park",
-//            "elementType": "labels.text.fill",
-//            "stylers": [
-//              { "hue": "#00ffc4" },
-//              { "lightness": -35 }
-//            ]
-//          }
+   /*     var $style = [
             {
                 "stylers": [
                   { "hue": "#d4ff00" },
@@ -84,7 +64,8 @@
                   { "weight": 0.5 }
                 ]
               }
-        ];
+        ]; */
+
       // Create a simple map.
         map = new google.maps.Map(document.getElementById('map'), {
             zoom: 11,
@@ -92,9 +73,9 @@
                 lat: 40.279,  
                 lng:-74.714
             },
-            mapTypeId: 'Custom Basemap',  
+            mapTypeId: google.maps.MapTypeId.ROADMAP,  
     	    mapTypeControlOptions: {
-    	        mapTypeIds: ['Custom Basemap', google.maps.MapTypeId.SATELLITE,google.maps.MapTypeId.ROADMAP,google.maps.MapTypeId.HYBRID],
+    	        mapTypeIds: [google.maps.MapTypeId.SATELLITE,google.maps.MapTypeId.ROADMAP,google.maps.MapTypeId.HYBRID],
     	        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
             },
             // draggableCursor: 'pointer', // every pixel is clickable.
@@ -102,9 +83,7 @@
         });
       
         map.enableKeyDragZoom();          
-              
-
-        map.mapTypes.set('Custom Basemap', new google.maps.StyledMapType($style, CUSTOM_BASEMAP));
+      //  map.mapTypes.set('Custom Basemap', new google.maps.StyledMapType($style, CUSTOM_BASEMAP));
  
 	    var bikeLayer = new google.maps.BicyclingLayer();
         bikeLayer.setMap(map);
@@ -120,8 +99,6 @@
             	clickable: true
             }
 	    });
-
-
 		
         data1.addListener('click', function(e) {
 	        data1.revertStyle();
@@ -132,8 +109,8 @@
             data8.revertStyle();
             data9.revertStyle();
 	        data1.overrideStyle(e.feature, { 
-	    //	clickable: true,
-	            fillOpacity: .7,   
+	        	clickable: true,
+	            strokeOpacity: .7,   
 	            strokeColor: '#ff0000',
 	            strokeWeight: 4
 		    });
@@ -160,7 +137,6 @@
 	        } 
         });
         
-        
         var infowindow = new google.maps.InfoWindow();
         
         data2.addListener('click', function(e){
@@ -174,23 +150,7 @@
         
         data2.addListener('mouseout', function(e){
             infowindow.close(map);
-        })
-        
-        
-        
-        
-//        data2.addListener('click', function(e){
-//            var contentString = '<div class="popup"><b>Station: </b>' + e.feature.getProperty('STATION')
-//                              + '<br><b>Line: </b>' + e.feature.getProperty('LINE')
-//                              + '</div>';
-//            var infowindow = new google.maps.InfoWindow({
-//                content: contentString
-//            });
-//            
-//            $('#infosidebar').html(contentString);
-//            
-//        });
-//		
+        })   	
         // Symbology for places //
         var imgLibrary = new google.maps.MarkerImage('img/library.png',
                          new google.maps.Size(24,24));
@@ -256,7 +216,6 @@
             }
         };
         
-        
         data3 = new google.maps.Data();
         data3.loadGeoJson('data/Places.js');
         data3.setMap(map);
@@ -267,13 +226,10 @@
                 icon: setIcon(feature)
             }
         });
-
-    
-//      Place Information -- change to popup?
-        
+//      Place Information -- change to popup?  
         data3.addListener('click', function(e){
             infowindow.setContent("<div class='poi-window'><b>Name: </b>" + e.feature.getProperty('NAME') 
-                                  + "<br><b>Address: </b>" + e.feature.getProperty('ADDRESS') 
+                                //  + "<br><b>Address: </b>" + e.feature.getProperty('ADDRESS') 
                                   + "<br><b>Type: </b>" + e.feature.getProperty('TYPE') 
                                   + "</div>");
             infowindow.setPosition(e.feature.getGeometry().get());
@@ -296,11 +252,11 @@
                 strokeColor: '#006d2c',
 			    strokeWeight: 3,
         		fill: true,
-        		clickable: false
+        		clickable: true
 	        }
 		});
 	
-    /*    data4.addListener('click', function(e) {
+        data4.addListener('click', function(e) {
             data1.revertStyle();
     	    data4.revertStyle();
             data5.revertStyle();
@@ -309,20 +265,19 @@
             data8.revertStyle();
             data9.revertStyle();
             data4.overrideStyle(e.feature,{ 
-	    //	 clickable: true,
-                fillOpacity: .7,   
+                strokeOpacity: .7,   
                 strokeColor: '#ff0000' ,
-                strokeWeight: 4
+                strokeWeight: 5
 		    });
         });		
 		
         data4.addListener('click', function(e) {
-            var content = '<b>Lanes: </b>'+e.feature.getProperty('LANES')
-                		 +'<br><b>BLOS Score: </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;';
+            var content = '<b>Bikabilty Score: </b>'+e.feature.getProperty('BIKESCORE')
+                		 +'<br><b>BLOS Grade (score): </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;';
 
 	        $('#info-bar').html(content);
         });		
-	*/
+	
         data5 = new google.maps.Data();
     	data5.loadGeoJson('data/Fair.js');
     	data5.setMap(map);
@@ -330,7 +285,6 @@
     		return {   
                 strokeColor: '#713AA5',
     			strokeWeight: 3,
-        		fill: true,
         		clickable: true
 	        }
 		});
@@ -344,16 +298,15 @@
             data8.revertStyle();
             data9.revertStyle();
             data5.overrideStyle(e.feature,{ 
-    	    //	 clickable: true,
-                fillOpacity: .7,   
+                strokeOpacity: .7,   
                 strokeColor: '#ff0000' ,
-                strokeWeight: 4
+                strokeWeight: 5
     		});
         });		
 		
         data5.addListener('click', function(e) {
-        var content = '<b>Lanes: </b>'+e.feature.getProperty('LANES')
-            		 +'<br><b>BLOS Score: </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;';
+        var content = '<b>Bikabilty Score: </b>'+e.feature.getProperty('BIKESCORE')
+                     +'<br><b>BLOS Grade (score): </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;';
 
             $('#info-bar').html(content);
         });
@@ -365,7 +318,6 @@
     		return {   
                 strokeColor: '#EDBE26',
     			strokeWeight:3,
-        		fill: true,
         		clickable: true
     	    }
 		});
@@ -379,18 +331,16 @@
             data8.revertStyle();
             data9.revertStyle();
             data6.overrideStyle(e.feature,{ 
-    	// clickable: true,
-                fillOpacity: .7,   
+                strokeOpacity: .7,   
                 strokeColor: '#ff0000' ,
                 strokeWeight: 4
         	});
         });	
 		
         data6.addListener('click', function(e) {
-            var content = '<b>Lanes: </b>'+e.feature.getProperty('LANES')
-                		 +'<br><b>BLOS Score: </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;';
+           var content = '<b>Bikabilty Score: </b>'+e.feature.getProperty('BIKESCORE')
+                        +'<br><b>BLOS Grade (score): </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;';
 
-	   
             $('#info-bar').html(content);
         });	
 	
@@ -401,7 +351,7 @@
 		    return {   
                 strokeColor: '#E83A28',
     			strokeWeight: 3,
-        		fill: true,
+                strokeOpacity: .85,  
         		clickable: true
 	        }
 		});
@@ -414,18 +364,16 @@
             data4.revertStyle();
             data8.revertStyle();
             data9.revertStyle();
-            data7overrideStyle(e.feature, { 
-	    //	 clickable: true,
-                fillOpacity: .7,   
-                strokeColor: '#ff0000' ,
+            data7.overrideStyle(e.feature,{ 
+                strokeOpacity: .7,   
+                strokeColor: '#fee0d2' ,
                 strokeWeight: 4
-		    });
+            });
         });	
 		
         data7.addListener('click', function(e) {
-            var content = '<b>Lanes: </b>'+e.feature.getProperty('LANES')
-                		 +'<br><b>BLOS Score: </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;';
-
+            var content = '<b>Bikabilty Score: </b>'+e.feature.getProperty('BIKESCORE')
+                         +'<br><b>BLOS Grade (score): </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;';
 
 	        $('#info-bar').html(content);
         });	
@@ -438,7 +386,6 @@
                // strokeColor: '#a8ddb5',
     		    strokeColor: '#74c476',	
                 strokeWeight: 2,
-        		fill: true,
         		clickable: true
 	        }
 		});	
@@ -453,17 +400,18 @@
             data9.revertStyle();
             data8.overrideStyle(e.feature,{ 
     	//	clickable: true,
-                fillOpacity: .7,   
+                strokeOpacity: .7,   
                 strokeColor: '#ff0000' ,
                 strokeWeight: 4
         	});
         });	
 		
         data8.addListener('click', function(e) {
-            var content = '<b>Lanes: </b>'+e.feature.getProperty('LANES')
-                		 +'<br><b>BLOS Score: </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;';
+            var content = '<b>Bikabilty Score: </b>'+e.feature.getProperty('BIKESCORE')
+                         +'<br><b>BLOS Grade (score): </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;'
+                         +'<br><i>Minor Road</i>';
 
-	   
+
             $('#info-bar').html(content);
         });	
 	
@@ -474,7 +422,6 @@
 		    return {
                 strokeColor: '#F37D80',
 			    strokeWeight:2,
-        		fill: true,
         		clickable: true
 	        }
 		});
@@ -488,17 +435,16 @@
             data8.revertStyle();
             data4.revertStyle();
             data9.overrideStyle(e.feature,{ 
-    	 //	 clickable: true,
-                fillOpacity: .7,   
+                strokeOpacity: .7,   
                 strokeColor: '#ff0000' ,
                 strokeWeight: 4
         	});
         });		
 		
         data9.addListener('click', function(e) {
-            var content = '<b>Lanes: </b>'+e.feature.getProperty('LANES')
-                		 +'<br><b>BLOS Score: </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;';
-
+           var content = '<b>Bikabilty Score: </b>'+e.feature.getProperty('BIKESCORE')
+                         +'<br><b>BLOS Grade (score): </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;'
+                         +'<br><i>Minor Road</i>';
 
 	        $('#info-bar').html(content);
         });	
@@ -509,7 +455,7 @@
                 style:{
                     stroke:true,
                     fillColor:'none',
-                    strokeColor: 'black',
+                    strokeColor: '#2A4747',
                     strokeWeight: 1.5,
                     fill: true, 
                     opacity: 1,
@@ -526,9 +472,8 @@
 				style: {
 					stroke:true,
 					fillColor:'none',
-					strokeColor: '#000',
-					strokeWeight: 5,
-					fill: true, 
+					strokeColor: '#2A4747',
+					strokeWeight: 4,
 					opacity: 1,
 					fillOpacity: 0, 
 					clickable: false 
@@ -602,8 +547,6 @@
             map.setZoom(13);
         });
 
-       
-
         google.maps.event.addListener(map, 'click', function() {
             data1.revertStyle();
             data4.revertStyle();
@@ -613,8 +556,6 @@
             data8.revertStyle();
             data9.revertStyle();
         });
-  
     }
-
         google.maps.event.addDomListener(window, 'load', initialize);
 
