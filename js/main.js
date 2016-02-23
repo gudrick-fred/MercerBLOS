@@ -273,7 +273,8 @@
 		
         data4.addListener('click', function(e) {
             var content = '<b>Bikeability Score: </b>'+e.feature.getProperty('BIKESCORE')
-                		 +'<br><b>BLOS Grade (score): </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;';
+                		 +'<br><b>Initial BLOS Grade/Score: </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#47;'+e.feature.getProperty('SCORE')
+                         +'<br><i style="font-size:80%;">(see “About”)</i>';
 
 	        $('#info-bar').html(content);
         });		
@@ -306,7 +307,8 @@
 		
         data5.addListener('click', function(e) {
         var content = '<b>Bikeability Score: </b>'+e.feature.getProperty('BIKESCORE')
-                     +'<br><b>BLOS Grade (score): </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;';
+                     +'<br><b>Initial BLOS Grade/Score: </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#47;'+e.feature.getProperty('SCORE')
+                     +'<br><i style="font-size:80%;">(see “About”)</i>';
 
             $('#info-bar').html(content);
         });
@@ -339,7 +341,8 @@
 		
         data6.addListener('click', function(e) {
            var content = '<b>Bikeability Score: </b>'+e.feature.getProperty('BIKESCORE')
-                        +'<br><b>BLOS Grade (score): </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;';
+                        +'<br><b>Initial BLOS Grade/Score: </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#47;'+e.feature.getProperty('SCORE')
+                        +'<br><i style="font-size:80%;">(see “About”)</i>';
 
             $('#info-bar').html(content);
         });	
@@ -373,7 +376,8 @@
 		
         data7.addListener('click', function(e) {
             var content = '<b>Bikeability Score: </b>'+e.feature.getProperty('BIKESCORE')
-                         +'<br><b>BLOS Grade (score): </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;';
+                        +'<br><b>Initial BLOS Grade/Score: </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#47;'+e.feature.getProperty('SCORE')
+                        +'<br><i style="font-size:80%;">(see “About”)</i>';
 
 	        $('#info-bar').html(content);
         });	
@@ -407,9 +411,10 @@
         });	
 		
         data8.addListener('click', function(e) {
-            var content = '<b>Bikeability Score: </b>'+e.feature.getProperty('BIKESCORE')
-                         +'<br><b>BLOS Grade (score): </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;'
-                         +'<br><i>Minor Road</i>';
+          var content ='<i>Minor Road</i>'
+                 +'<br><b>Bikeability Score: </b>'+e.feature.getProperty('BIKESCORE')
+                 +'<br><b>Initial BLOS Grade/Score: </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#47;'+e.feature.getProperty('SCORE')
+                 +'<br><i style="font-size:80%;">(see “About”)</i>';
 
 
             $('#info-bar').html(content);
@@ -442,9 +447,11 @@
         });		
 		
         data9.addListener('click', function(e) {
-           var content = '<b>Bikeability Score: </b>'+e.feature.getProperty('BIKESCORE')
-                         +'<br><b>BLOS Grade (score): </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#40;'+e.feature.getProperty('SCORE')+'&#41;'
-                         +'<br><i>Minor Road</i>';
+           var content ='<i>Minor Road</i>'
+                         +'<br><b>Bikeability Score: </b>'+e.feature.getProperty('BIKESCORE')
+                         +'<br><b>Initial BLOS Grade/Score: </b>'+e.feature.getProperty('BLOS')+ '&nbsp;&#47;'+e.feature.getProperty('SCORE')
+                         +'<br><i style="font-size:80%;">(see “About”)</i>';
+            
 
 	        $('#info-bar').html(content);
         });	
