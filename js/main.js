@@ -42,7 +42,7 @@
 //    }
         
 	function initialize() {
-
+    $('#aboutModal').modal();
    /*     var $style = [
             {
                 "stylers": [
